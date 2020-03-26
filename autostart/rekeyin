@@ -1,0 +1,15 @@
+clear Lock
+
+keycode 108 = Mode_switch
+
+keysym h = h H Left
+keysym j = j J Down
+keysym k = k K Up
+keysym l = l L Right
+keysym m = m M Home
+keysym comma = comma less End
+keysym u = u U Prior
+keysym i = i I Next
+keysym o = o O Insert
+
+keycode 22 = Delete
