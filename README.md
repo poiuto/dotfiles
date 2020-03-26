@@ -1,2 +1,2 @@
-put ```autostart.sh.destop``` in ```**~/.config/autostart/**```  
-put ```**autostart**``` folder in ```**~/Documents/**```
+put ```autostart.sh.destop``` in ```~/.config/autostart/```  
+put ```autostart*`` folder in ```~/Documents/```
