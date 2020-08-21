@@ -1,3 +1,3 @@
 put ```autostart.sh.destop``` in ```~/.config/autostart/```  
-put ```autostart``` folder in ```~/Documents/```  
+put folder ```autostart``` in ```~/Documents/```  
 ```chmode +x```
