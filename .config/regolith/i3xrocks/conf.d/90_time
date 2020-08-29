@@ -1,0 +1,5 @@
+# Date Time
+[time]
+label=
+command=echo "<span> `date '+%a %d/%m %H:%M '`</span>"
+interval=10

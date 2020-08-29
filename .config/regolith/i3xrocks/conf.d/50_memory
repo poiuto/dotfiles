@@ -1,0 +1,5 @@
+# Memory
+[memory]
+label=
+command=free -m | awk 'NR==2{printf " %.1f/%.1f\n", $3/1024,$2/1024 }'
+interval=10

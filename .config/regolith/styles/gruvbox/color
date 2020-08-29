@@ -1,0 +1,17 @@
+! Ayu Mirage colors
+#define color_base03   #3c3836
+#define color_base02   #b8bb26
+#define color_base01   #bfbab0
+#define color_base00   #bfbab0
+#define color_base0    #e6e1cf
+#define color_base1    #e6e1cf
+#define color_base2    #ffffff
+#define color_base3    #ffffff
+#define color_yellow   #fabd2f
+#define color_orange   #fe8019
+#define color_red      #fb4934
+#define color_magenta  #f28779
+#define color_violet   #d3869b
+#define color_blue     #83a598
+#define color_cyan     #8ec07c
+#define color_green    #b8bb26
