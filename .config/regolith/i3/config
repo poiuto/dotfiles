@@ -370,6 +370,7 @@ mode "Resize Mode" {
         ## Resize // Exit Resize Mode // Escape or Enter ##
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym BackSpace mode "default"
         bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "Resize Mode"
@@ -426,7 +427,7 @@ set_from_resource $unfocused.color.indicator i3-wm.client.unfocused.color.indica
 set_from_resource $unfocused.color.child_border i3-wm.client.unfocused.color.child_border
 
 set_from_resource $urgent.color.border i3-wm.client.urgent.color.border "#002b36"
-set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#dc322f"
+set_from_resource $urgent.color.background i3-wm.client.urgent.color.background "#fb4934"
 set_from_resource $urgent.color.text i3-wm.client.urgent.color.text "#fdf6e3"
 set_from_resource $urgent.color.indicator i3-wm.client.urgent.color.indicator "#002b36"
 set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_border
@@ -456,8 +457,8 @@ set_from_resource $i3-wm.bar.workspace.inactive.border.color i3-wm.bar.workspace
 set_from_resource $i3-wm.bar.workspace.inactive.background.color i3-wm.bar.workspace.inactive.background.color "#002b36"
 set_from_resource $i3-wm.bar.workspace.inactive.text.color i3-wm.bar.workspace.inactive.text.color "#586e75"
 
-set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#dc322f"
-set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
+set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.urgent.border.color "#fb4934"
+set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#fb4934"
 set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
 
 # Sets i3 font for dialogs
