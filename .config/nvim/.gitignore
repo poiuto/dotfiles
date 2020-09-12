@@ -1,0 +1,5 @@
+bundle/*
+!bundle/.gitkeep
+undo/*
+!undo/.gitkeep
+!bundle/gruvbox9

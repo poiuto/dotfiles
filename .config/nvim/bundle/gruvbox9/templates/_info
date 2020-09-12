@@ -1,0 +1,9 @@
+# vim: ft=colortemplate
+
+Author:          morhetz <morhetz@gmail.com>
+Maintainer:      taigacute
+Website:         https://github.com/taigacute/gruvbox9/
+Description:     Retro groove color scheme originally designed by morhetz
+Option Prefix:   gruvbox
+Neovim:          yes
+
