@@ -177,11 +177,11 @@ bindsym $mod+Ctrl+Shift+Right move workspace to output right
 ## Modify // Next Window Orientation // <> Backspace ##
 bindsym $mod+BackSpace split toggle
 
-## Modify // Window Fullscreen Toggle // <><Shift> f ##
-bindsym $mod+Shift+f fullscreen toggle
+## Modify // Window Fullscreen Toggle // <> f ##
+bindsym $mod+f fullscreen toggle
 
-## Modify // Window Floating Toggle // <> f ##
-bindsym $mod+f floating toggle
+## Modify // Window Floating Toggle // <><Shift> f ##
+bindsym $mod+Shift+f floating toggle
 
 ## Modify // Move to Scratchpad // <><Ctrl> m ##
 bindsym $mod+Ctrl+m move to scratchpad

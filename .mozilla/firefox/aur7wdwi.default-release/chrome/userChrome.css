@@ -129,6 +129,7 @@ hbox.tab-content[pinned="true"] .tab-text {
   margin-top: 3px !important;
   max-height: var(--mff-tab-height) !important;
   min-height: var(--mff-tab-height) !important;
+  min-width: 4px !important;
 }
 
 .tabbrowser-tab[soundplaying="true"] {
@@ -277,7 +278,7 @@ toolbar#nav-bar {
 }
 
 #urlbar {
-  max-width: 75% !important;
+  max-width: 85% !important;
   margin: 0 15% !important;
   /* 	position: unset!important; */
 }
