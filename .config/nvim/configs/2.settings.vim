@@ -5,18 +5,25 @@ set relativenumber
 set number
 set number relativenumber
 set mouse=a   " enable mouse for all mode
+set expandtab
+set timeoutlen=500
+set background=dark
+if has('termguicolors')   " enable true color
+  set termguicolors
+endif
+syntax on
 filetype on
 
 " use ripgrep instead of grep
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 " jj to normal mode
-inoremap jj <ESC>
+"inoremap jj <ESC>
 
-" map leader key
+" remap leader key
 let mapleader = " "
 
-" remap switching and resizing splits
+" remap switching and resizing windows
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -62,5 +69,5 @@ set directory=/tmp
 set autoread
 set autowrite
 
-" Auto remove trailing spaces
+" auto remove trailing spaces
 autocmd BufWritePre * %s/\s\+$//e

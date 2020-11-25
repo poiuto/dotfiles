@@ -7,5 +7,15 @@ bind d scrollpage 0.5
 bind u scrollpage -0.5
 bind x tabclose
 bind X undo
+bind W winopen -private
 bind ;W hint -wp
+bind ^ buffer #
 bind --mode=hint <Backspace> hint.reset
+bind --mode=hint <Escape> hint.reset
+
+bind i mode ignore
+bind --mode=ignore <Backspace> mode normal
+bind --mode=ignore <Escape> mode normal
+
+bind --mode=visual <Backspace> mode normal
+bind --mode=visual <Escape> mode normal

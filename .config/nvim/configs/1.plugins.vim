@@ -1,6 +1,7 @@
 call plug#begin(base_dir.'/bundle')
 " gruvbox
-Plug 'hardcoreplayers/gruvbox9'
+Plug 'poiuto/gruvbox9-based'
+Plug 'morhetz/gruvbox'
 Plug 'chemzqm/vim-jsx-improve'
 
 " lightline
@@ -21,12 +22,29 @@ Plug 'luochen1990/rainbow'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " surrround
-Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-surround'
+
+" sandwich
+Plug 'machakann/vim-sandwich'
 Plug 'wellle/targets.vim'
 
 " fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+
+" vim-clap
+Plug 'liuchengxu/vim-clap'
+" Build the extra binary if cargo exists on your system.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+" The bang version will try to download the prebuilt binary if cargo does not exist.
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+" :Clap install-binary[!] will always try to compile the binary locally,
+" if you do care about the disk used for the compilation, try using the force download way,
+" which will download the prebuilt binary even you have installed cargo.
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+" `:Clap install-binary[!]` will run using the terminal feature which is inherently async.
+" If you don't want that and hope to run the hook synchorously:
+Plug 'liuchengxu/vim-clap', { 'do': has('win32') ? 'cargo build --release' : 'make' }
 
 " multiple cursors
 Plug 'terryma/vim-multiple-cursors'

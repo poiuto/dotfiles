@@ -44,5 +44,8 @@
   // "codeLens.enable": true,
   "coc.preferences.hoverTarget": "float",
   "typescript.showUnused": true,
-  "javascript.showUnused": true
+  "javascript.showUnused": true,
+  "cSpell.userWords": [
+    "gruvbox"
+  ]
 }

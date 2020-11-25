@@ -11,5 +11,3 @@ keysym comma = comma less End
 keysym u = u U Prior
 keysym i = i I Next
 keysym o = o O Insert
-
-keycode 22 = Delete

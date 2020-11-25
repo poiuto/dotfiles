@@ -1,4 +1,4 @@
 [Desktop Entry]
-Exec=$HOME/Documents/autostart/autostart.sh
-Name=autostart.sh
 Type=Application
+Exec=/home/poiuto/Documents/autostart/autostart.sh
+Name=autostart.sh

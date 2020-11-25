@@ -1,10 +1,4 @@
 " theme
-syntax on
-if has('termguicolors')   " enable true color
-  set termguicolors
-endif
-set t_Co=256
-set background=dark
 "highlight Normal ctermbg=None
 "let g:gruvbox_italic=1
 "let g:gruvbox_bold=1
@@ -19,7 +13,17 @@ let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-set expandtab
+
+" prettier for PHP
+function PrettierPhpCursor()
+  let save_pos = getpos(".")
+  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=80 --parser=php
+  call setpos('.', save_pos)
+endfunction
+" define custom command
+command PrettierPhp call PrettierPhpCursor()
+" format on save
+autocmd BufwritePre *.php PrettierPhp
 
 " highlight words
 let g:Illuminate_delay = 100
@@ -27,11 +31,14 @@ let g:Illuminate_delay = 100
 " hightlight colors
 lua require'colorizer'.setup()
 
+" sandwich
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
 " rainbow
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-\	'guifgs': ['#fe8019', '#8ec07c', '#fb4934', '#98971a', '#fabd2f', '#83a589'],
-\}
+"let g:rainbow_active = 1
+"let g:rainbow_conf = {
+"\	'guifgs': ['#fe8019', '#8ec07c', '#fb4934', '#98971a', '#fabd2f', '#83a589'],
+"\}
 " for ejs file
 au BufRead,BufNewFile *.ejs set ft=html
 au BufRead,BufNewFile *.ejs set ft=mason
@@ -59,7 +66,7 @@ vnoremap <Space>c :call NERDComment(0,"toggle")<CR>
 " ,, to trigger emmet
 let g:user_emmet_leader_key=','
 
-" easymotiog
+" easymotion
 nmap <silent> ;; <Plug>(easymotion-overwin-f)
 nmap <silent> ;l <Plug>(easymotion-overwin-line)
 
@@ -75,6 +82,14 @@ nmap <silent> ;l <Plug>(easymotion-overwin-line)
 "let g:multi_cursor_quit_key            = '<Esc>'
 
 " coc
+" coc-spell-checker, coc-actions
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
@@ -84,11 +99,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " coc press Ctrl + O to jump to a symbol
 nnoremap <C-o> :CocList outline<CR>
-" use <tab> for trigger completion and navigate to next complete item
+" <tab> for trigger completion and navigate to next complete item, <S-tab>
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{StatusDiagnostic()}
 " coc-explorer
@@ -115,20 +132,29 @@ highlight SignColumn guibg=bg
 " highlighted yank
 let g:highlightedyank_highlight_duration = 500
 
+" vim-clap
+nnoremap <silent> <Leader>f :Clap files! .<CR>
+nnoremap <silent> <Leader>b :Clap buffers!<CR>
+nnoremap <silent> <Leader>w :Clap grep ++query<cword> .<CR>
+nnoremap <silent> <Leader>t :Clap grep2 ++query<cword> .<CR>
+nnoremap <silent> <Leader>gd :Clap git_diff_files!<CR>
+nnoremap <silent> <Leader>y :Clap yanks!<CR>
+let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-e': 'split', 'ctrl-v': 'vsplit' }
+
 " fzf
-command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0) " invoke Rg, FZF + ripgrep will not consider filename as a match
-let g:fzf_layout = { 'window': {
-      \ 'width': 0.9,
-      \ 'height': 0.7,
-      \ 'highlight': 'Comment',
-      \ 'rounded': v:false } }
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-" finding files
-nnoremap <silent> <Leader>f :Files<CR>
-" finding inside files
-nnoremap <silent> <C-p> :Rg<CR>
-" finding buffers
-nnoremap <silent> <Leader>b :Buffers<CR>
+"command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0) " invoke Rg, FZF + ripgrep will not consider filename as a match
+"let g:fzf_layout = { 'window': {
+      "\ 'width': 0.9,
+      "\ 'height': 0.7,
+      "\ 'highlight': 'Comment',
+      "\ 'rounded': v:false } }
+"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+"" finding files
+"nnoremap <silent> <Leader>f :Files<CR>
+"" finding inside files
+"nnoremap <silent> <C-p> :Rg<CR>
+"" finding buffers
+"nnoremap <silent> <Leader>b :Buffers<CR>
 
 " lightline
 "{{{lightline.vim
