@@ -1,8 +1,12 @@
+" vim-polyglot
+let g:polyglot_disabled = []
+
 call plug#begin(base_dir.'/bundle')
 " gruvbox
-Plug 'poiuto/gruvbox9-based'
-Plug 'morhetz/gruvbox'
-Plug 'chemzqm/vim-jsx-improve'
+Plug 'poiuto/gruvbox9'
+"Plug 'morhetz/gruvbox'
+
+Plug 'sheerun/vim-polyglot'
 
 " lightline
 Plug 'itchyny/lightline.vim'
@@ -21,16 +25,12 @@ Plug 'luochen1990/rainbow'
 " color highlighter
 Plug 'norcalli/nvim-colorizer.lua'
 
-" surrround
-"Plug 'tpope/vim-surround'
-
 " sandwich
 Plug 'machakann/vim-sandwich'
 Plug 'wellle/targets.vim'
 
-" fzf
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
+" undotree
+Plug 'mbbill/undotree'
 
 " vim-clap
 Plug 'liuchengxu/vim-clap'

@@ -7,9 +7,11 @@ bind d scrollpage 0.5
 bind u scrollpage -0.5
 bind x tabclose
 bind X undo
-bind W winopen -private
+bind w fillcmdline winopen
+bind W fillcmdline winopen -private
 bind ;W hint -wp
 bind ^ buffer #
+bind gf hint -qb
 bind --mode=hint <Backspace> hint.reset
 bind --mode=hint <Escape> hint.reset
 

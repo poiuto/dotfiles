@@ -4,7 +4,7 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.icon.enableVimDevicons": false,
-  "explorer.keyMappings": {
+  "explorer.keyMappings.global": {
     "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
     "v": "open:vsplit"
   },
@@ -46,6 +46,12 @@
   "typescript.showUnused": true,
   "javascript.showUnused": true,
   "cSpell.userWords": [
-    "gruvbox"
-  ]
+    "gruvbox",
+    "gruvbox9",
+    "startify"
+  ],
+  // actions
+  "coc-actions.hideCursor": false,
+  "coc-actions.useCursorLine": true,
+  "coc-actions.showActionKind": true
 }
