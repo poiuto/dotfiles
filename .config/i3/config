@@ -72,7 +72,7 @@ set_from_resource $ws19 i3-wm.workspace.19.name "19"
 ###############################################################################
 
 ## Launch // Terminal // <> Enter ##
-bindsym $mod+Return exec /usr/bin/x-terminal-emulator
+bindsym $mod+Return exec alacritty
 
 ## Launch // Browser // <><Shift> Enter ##
 bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
@@ -305,13 +305,13 @@ bindsym $mod+w exec $i3-wm.program.wifi
 set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
 bindsym $mod+b exec $i3-wm.program.bluetooth
 
-## Launch // File Browser // <><Shift> n ##
+## Launch // File Browser // <> n ##
 set_from_resource $i3-wm.program.files i3-wm.program.files /usr/bin/nautilus --new-window
-bindsym $mod+Shift+n exec $i3-wm.program.files
+bindsym $mod+n exec $i3-wm.program.files
 
-## Launch // Notification Viewer // <> n ##
+## Launch // Notification Viewer // <><Shift> n ##
 set_from_resource $i3-wm.program.notification_ui i3-wm.program.notification_ui /usr/bin/rofication-gui
-bindsym $mod+n exec $i3-wm.program.notification_ui
+bindsym $mod+Shift+n exec $i3-wm.program.notification_ui
 
 ###############################################################################
 # Workspace Management
@@ -336,6 +336,16 @@ for_window [class="Gnome-control-center"] floating enable
 ###############################################################################
 
 ## Resize // Enter Resize Mode // <> r ##
+## Resize // Resize Window // k j h l ##
+bindsym $mod+Ctrl+h resize shrink width 6 px or 6 ppt
+bindsym $mod+Ctrl+k resize grow height 6 px or 6 ppt
+bindsym $mod+Ctrl+j resize shrink height 6 px or 6 ppt
+bindsym $mod+Ctrl+l resize grow width 6 px or 6 ppt
+bindsym $mod+Ctrl+Shift+h resize shrink width 12 px or 12 ppt
+bindsym $mod+Ctrl+Shift+k resize grow height 12 px or 12 ppt
+bindsym $mod+Ctrl+Shift+j resize shrink height 12 px or 12 ppt
+bindsym $mod+Ctrl+Shift+l resize grow width 12 px or 12 ppt
+
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
 

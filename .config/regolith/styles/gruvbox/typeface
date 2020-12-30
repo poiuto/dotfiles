@@ -1,10 +1,10 @@
 ! Typeface: Source Code Pro
-#define typeface_bar_glyph  Source Code Pro Medium 12
-#define typeface_wm         pango:Source Code Pro Medium 11
-#define typeface_bar        pango:Source Code Pro Medium 10, FontAwesome 10
-#define typeface_rofi       Source Code Pro Medium 13
-#define typeface_terminal   Source Code Pro:pixelsize=16:antialias=true:autohint=true
-#define typeface_gnome_terminal DejaVuSans Mono Nerd Font Mono 9
+#define typeface_bar_glyph  FiraCode Nerd Font 12
+#define typeface_wm         pango:FiraCode Nerd Font 11
+#define typeface_bar        pango:FiraCode Nerd Font 10, FontAwesome 10
+#define typeface_rofi       FiraCode Nerd Font 13
+#define typeface_terminal   FiraCode Nerd Font:pixelsize=16:antialias=true:autohint=true
+#define typeface_gnome_terminal FiraCode 9
 
 #define typeface_bar_glyph_wifi 
 #define typeface_bar_glyph_wired 

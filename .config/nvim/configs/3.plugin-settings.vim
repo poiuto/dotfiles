@@ -4,6 +4,7 @@
 "let g:gruvbox_bold=1
 let g:gruvbox_filetype_hi_groups = 1
 let g:gruvbox_italic = 1
+let g:gruvbox_italicize_strings = 1
 colorscheme gruvbox9
 
 " prettier
@@ -34,36 +35,26 @@ lua require'colorizer'.setup()
 " sandwich
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
-" rainbow
-"let g:rainbow_active = 1
-"let g:rainbow_conf = {
-"\	'guifgs': ['#fe8019', '#8ec07c', '#fb4934', '#98971a', '#fabd2f', '#83a589'],
-"\}
-" for ejs file
+" for ejs files
 au BufRead,BufNewFile *.ejs set ft=html
 au BufRead,BufNewFile *.ejs set ft=mason
 
 " indent line
 let g:indentLine_color_term = 239
 let g:indentLine_char = '│'
-let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify']
-
-" rainbow parenthese
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
+let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify', 'text', 'help']
 
 " nerdcommenter
-nnoremap <Space>c :call NERDComment(0,"toggle")<CR>
+nmap <Space>c :call NERDComment(0,"toggle")<CR>
 vnoremap <Space>c :call NERDComment(0,"toggle")<CR>
 
-" JS config
-"let g:javascript_plugin_jsdoc = 1
-"let g:polyglot_disabled = ['jsx', 'tsx', 'js', 'ts']
-"let g:vim_jsx_pretty_template_tags = ['html', 'jsx', 'tsx']
+" undotree
+nmap <Leader>u :UndotreeToggle<CR>
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
 
-" ,, to trigger emmet
+  " ,, to trigger emmet
 let g:user_emmet_leader_key=','
 
 " easymotion
@@ -76,36 +67,45 @@ nmap <silent> ;l <Plug>(easymotion-overwin-line)
 "let g:multi_cursor_select_all_word_key = '<C-L>'
 "let g:multi_cursor_start_key           = 'g<C-d>'
 "let g:multi_cursor_select_all_key      = 'g<C-L>'
-"let g:multi_cursor_next_key            = '<C-d>'
-"let g:multi_cursor_prev_key            = '<C-p>'
-"let g:multi_cursor_skip_key            = '<C-i>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
 "let g:multi_cursor_quit_key            = '<Esc>'
 
 " coc
 " coc-spell-checker, coc-actions
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+" applying codeAction to the selected region.xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
+nmap <silent> gp :call CocAction('doHover')<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " coc press Ctrl + O to jump to a symbol
-nnoremap <C-o> :CocList outline<CR>
+nmap <C-o> :CocList outline<CR>
 " <tab> for trigger completion and navigate to next complete item, <S-tab>
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{StatusDiagnostic()}
 " coc-explorer
@@ -129,32 +129,37 @@ highlight GitGutterDelete guibg=bg
 highlight SignColumn guibg=bg
 "highlight SignColumn ctermbg=bg
 
+" fugitive
+nmap <Leader>ga :Git add %:p<CR><CR>
+nmap <Leader>gs :Gstatus<CR>
+nmap <Leader>gc :Gcommit -v -q<CR>
+nmap <Leader>gt :Gcommit -v -q %:p<CR>
+nmap <Leader>gd :Gdiffsplit<CR>
+nmap <Leader>ge :Gedit<CR>
+nmap <Leader>gr :Gread<CR>
+nmap <Leader>gw :Gwrite<CR><CR>
+nmap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+nmap <Leader>gp :Ggrep<Space>
+nmap <Leader>gm :Gmove<Space>
+nmap <Leader>gb :Git branch<Space>
+nmap <Leader>go :Git checkout<Space>
+nmap <Leader>gps :terminal git push<CR>i
+nmap <Leader>gpl :Gpull<CR>
+nmap <Leader>gf :diffget //2<CR>
+nmap <Leader>gj :diffget //3<CR>
+
 " highlighted yank
 let g:highlightedyank_highlight_duration = 500
 
 " vim-clap
-nnoremap <silent> <Leader>f :Clap files! .<CR>
-nnoremap <silent> <Leader>b :Clap buffers!<CR>
-nnoremap <silent> <Leader>w :Clap grep ++query<cword> .<CR>
-nnoremap <silent> <Leader>t :Clap grep2 ++query<cword> .<CR>
-nnoremap <silent> <Leader>gd :Clap git_diff_files!<CR>
-nnoremap <silent> <Leader>y :Clap yanks!<CR>
+let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
+nmap <silent> <Leader>ff :Clap files! --hidden .<CR>
+nmap <silent> <Leader>fb :Clap buffers!<CR>
+nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
+nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
+nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
+nmap <silent> <Leader>fy :Clap yanks!<CR>
 let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-e': 'split', 'ctrl-v': 'vsplit' }
-
-" fzf
-"command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0) " invoke Rg, FZF + ripgrep will not consider filename as a match
-"let g:fzf_layout = { 'window': {
-      "\ 'width': 0.9,
-      "\ 'height': 0.7,
-      "\ 'highlight': 'Comment',
-      "\ 'rounded': v:false } }
-"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-"" finding files
-"nnoremap <silent> <Leader>f :Files<CR>
-"" finding inside files
-"nnoremap <silent> <C-p> :Rg<CR>
-"" finding buffers
-"nnoremap <silent> <Leader>b :Buffers<CR>
 
 " lightline
 "{{{lightline.vim
@@ -222,16 +227,16 @@ let g:lightline = {}
 let g:lightline = {
       \ 'colorscheme': 'gruvbox9',
       \}
-let g:lightline.separator = { 'left': "\ue0b8", 'right': "\ue0be" }
-let g:lightline.subseparator = { 'left': "\ue0b9", 'right': "\ue0b9" }
-let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
-let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
+let g:lightline.separator = { 'left': "\ue0bc", 'right': "\ue0be" }
+let g:lightline.subseparator = { 'left': "\ue0bd", 'right': "\ue0bf" }
+let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0be" }
+let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bf" }
 let g:lightline#coc#indicator_warnings = ""
 let g:lightline#coc#indicator_errors = ""
 let g:lightline#coc#indicator_ok = ""
-let g:lightline_gitdiff#indicator_added = ''
-let g:lightline_gitdiff#indicator_deleted = ''
-let g:lightline_gitdiff#indicator_modified = ''
+"let g:lightline_gitdiff#indicator_added = ''
+"let g:lightline_gitdiff#indicator_deleted = ''
+"let g:lightline_gitdiff#indicator_modified = ''
 let g:lightline_gitdiff#min_winwidth = '70'
 let g:lightline#asyncrun#indicator_none = ''
 let g:lightline#asyncrun#indicator_run = 'Running...'
@@ -340,8 +345,9 @@ if g:vimIsInTmux == 1
   let g:tmuxline_separators = {
         \ 'left' : "\ue0bc",
         \ 'left_alt': "\ue0bd",
-        \ 'right' : "\ue0ba",
-        \ 'right_alt' : "\ue0bd",
+        \ 'right' : "\ue0be",
+        \ 'right_alt' : "\ue0bf",
         \ 'space' : ' '}
-  au VimEnter * :Tmuxline lightline
+  "au VimEnter * :Tmuxline lightline
+  ":TmuxlineSnapshot tmuxline
 endif
