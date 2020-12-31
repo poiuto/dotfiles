@@ -140,12 +140,13 @@ nmap <Leader>gr :Gread<CR>
 nmap <Leader>gw :Gwrite<CR><CR>
 nmap <Leader>gl :silent! Glog<CR>:bot copen<CR>
 nmap <Leader>gp :Ggrep<Space>
-nmap <Leader>gm :Gmove<Space>
+nmap <Leader>gf :Gfetch<CR>
+nmap <Leader>gm :Gmerge<CR>
 nmap <Leader>gb :Git branch<Space>
 nmap <Leader>go :Git checkout<Space>
 nmap <Leader>gps :terminal git push<CR>i
 nmap <Leader>gpl :Gpull<CR>
-nmap <Leader>gf :diffget //2<CR>
+nmap <Leader>gg :diffget //2<CR>
 nmap <Leader>gj :diffget //3<CR>
 
 " highlighted yank
@@ -227,10 +228,10 @@ let g:lightline = {}
 let g:lightline = {
       \ 'colorscheme': 'gruvbox9',
       \}
-let g:lightline.separator = { 'left': "\ue0bc", 'right': "\ue0be" }
-let g:lightline.subseparator = { 'left': "\ue0bd", 'right': "\ue0bf" }
-let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0be" }
-let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bf" }
+let g:lightline.separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+let g:lightline.subseparator = { 'left': "\ue0bd", 'right': "\ue0bd" }
+let g:lightline.tabline_separator = { 'left': "\ue0bc", 'right': "\ue0ba" }
+let g:lightline.tabline_subseparator = { 'left': "\ue0bb", 'right': "\ue0bb" }
 let g:lightline#coc#indicator_warnings = ""
 let g:lightline#coc#indicator_errors = ""
 let g:lightline#coc#indicator_ok = ""
@@ -245,7 +246,7 @@ let g:lightline.active = {
     \           [  'readonly', 'filename', 'modified', 'devicons_filetype' ] ],
     \ 'right': [ [ 'lineinfo' ],
     \            [ 'linter_errors', 'linter_warnings', 'linter_ok' ],
-    \           [ 'asyncrun_status', 'coc_status', 'fileformat' ] ]
+    \            [ 'asyncrun_status', 'coc_status', 'fileformat' ] ]
     \ }
 let g:lightline.inactive = {
     \ 'left': [ [ 'filename' , 'modified', 'devicons_filetype' ]],
@@ -295,7 +296,7 @@ let g:lightline.component = {
       \ 'percent': '%2p%%',
       \ 'percentwin': '%P',
       \ 'spell': '%{&spell?&spelllang:""}',
-      \ 'lineinfo': '%2p%% %3l:%-2v',
+      \ 'lineinfo': "%{line('.') . '/' . line('$')}",
       \ 'line': '%l',
       \ 'column': '%c',
       \ 'close': '%999X X ',
@@ -317,7 +318,7 @@ let g:lightline.component_expand = {
 let g:lightline.component_type = {
       \  'linter_warnings': 'warning',
       \  'linter_errors': 'error',
-      \  'linter_ok': 'left',
+      \  'linter_ok': 'info',
       \ }
 let g:lightline.component_visible_condition = {
       \ 'gitstatus': 'lightline_gitdiff#get_status() !=# ""'

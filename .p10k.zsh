@@ -161,15 +161,15 @@
   # Separator between same-color segments on the left.
   typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='\u2571'
   # Separator between same-color segments on the right.
-  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='\ue0bf'
+  typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='\u2571'
   # Separator between different-color segments on the left.
   typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0BC'
   # Separator between different-color segments on the right.
-  typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0Be'
+  typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0Ba'
   # The right end of left prompt.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0BC'
   # The left end of right prompt.
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0Be'
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0Ba'
   # The left end of left prompt.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=''
   # The right end of right prompt.
@@ -188,7 +188,7 @@
   # Transparent background.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=008
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=015
   # Red prompt symbol if the last command failed.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=9
   # Default prompt symbol.
@@ -1688,40 +1688,26 @@ typeset -g POWERLEVEL9K_CONFIG_FILE=${${(%):-%x}:a}
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
 
-zmodload zsh/terminfo
-if (( terminfo[colors] >= 256 )); then
-  function _pp_c() { print -nr -- $2 }
-else
-  function _pp_c() { print -nr -- $1 }
-  typeset -g POWERLEVEL9K_IGNORE_TERM_COLORS=true
-fi
+#zmodload zsh/terminfo
+#if (( terminfo[colors] >= 256 )); then
+  #function _pp_c() { print -nr -- $2 }
+#else
+  #function _pp_c() { print -nr -- $1 }
+  #typeset -g POWERLEVEL9K_IGNORE_TERM_COLORS=true
+#fi
 
-function _pp_s() { print -nr -- $2 }
+#function _pp_s() { print -nr -- $2 }
 
 #if (( ${PURE_POWER_USE_P10K_EXTENSIONS:-1} )); then
-  #local p="\${\${\${KEYMAP:-0}:#vicmd}:+${${ins//\\/\\\\}//\}/\\\}}}"
-  #p+="\${\${\$((!\${#\${KEYMAP:-0}:#vicmd})):#0}:+${${cmd//\\/\\\\}//\}/\\\}}}"
+  #typeset -g POWERLEVEL9K_SHOW_RULER=true
+  #typeset -g POWERLEVEL9K_RULER_CHAR=$(_pp_s '-' '─')
+  #typeset -g POWERLEVEL9K_RULER_BACKGROUND=none
+  #if [[ "$DESERT_NIGHT_PURE_POWER_TRUE_COLOR" == "true" ]]; then
+    #typeset -g POWERLEVEL9K_RULER_FOREGROUND='#665c54'
+  #else
+    #typeset -g POWERLEVEL9K_RULER_FOREGROUND=$(_pp_c 7 241)
+  #fi
 #else
-  #p=$ins
+  #typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+  #function custom_rprompt() { }
 #fi
-#if [[ "$DESERT_NIGHT_PURE_POWER_TRUE_COLOR" == "true" ]]; then
-  #local ok="%F{#d4be98}${p}%f"
-  #local err="%F{#ea6962}${p}%f"
-#else
-  #local ok="%F{$(_pp_s 007 223)}${p}%f"
-  #local err="%F{$(_pp_s 001 167)}${p}%f"
-#fi
-
-if (( ${PURE_POWER_USE_P10K_EXTENSIONS:-1} )); then
-  typeset -g POWERLEVEL9K_SHOW_RULER=true
-  typeset -g POWERLEVEL9K_RULER_CHAR=$(_pp_s '-' '─')
-  typeset -g POWERLEVEL9K_RULER_BACKGROUND=none
-  if [[ "$DESERT_NIGHT_PURE_POWER_TRUE_COLOR" == "true" ]]; then
-    typeset -g POWERLEVEL9K_RULER_FOREGROUND='#665c54'
-  else
-    typeset -g POWERLEVEL9K_RULER_FOREGROUND=$(_pp_c 7 241)
-  fi
-else
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-  function custom_rprompt() { }
-fi

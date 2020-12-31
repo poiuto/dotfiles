@@ -1,7 +1,7 @@
 set encoding=UTF-8
 set t_Co=256
 set hidden
-"set nowrap
+"set wrap
 set ignorecase
 set smartcase
 set relativenumber

@@ -3,7 +3,6 @@ let g:polyglot_disabled = []
 
 call plug#begin(base_dir.'/bundle')
 Plug 'poiuto/gruvbox9'
-"Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 " lightline
 Plug 'itchyny/lightline.vim'
@@ -12,7 +11,7 @@ Plug 'albertomontesg/lightline-asyncrun'
 Plug 'josa42/vim-lightline-coc'
 Plug 'itchyny/vim-gitbranch'
 Plug 'mhinz/vim-startify'
-Plug 'edkolev/tmuxline.vim'
+"Plug 'edkolev/tmuxline.vim'
 " highlight word under cursor
 Plug 'RRethy/vim-illuminate'
 Plug 'luochen1990/rainbow'

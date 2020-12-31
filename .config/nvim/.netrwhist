@@ -10,3 +10,4 @@ let g:netrw_dirhist_7='/home/poiuto/.mozilla/firefox/aur7wdwi.default-release/ch
 let g:netrw_dirhist_6='/usr/share/gnome-background-properties'
 let g:netrw_dirhist_5='/home/poiuto/.fonts'
 let g:netrw_dirhist_4='/home/poiuto/.config/regolith/i3'
+let g:netrw_dirhist_3='/home/poiuto/.config/regolith'

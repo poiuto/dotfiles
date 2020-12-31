@@ -99,7 +99,7 @@ scrolling:
   history: 10000
 
   # Scrolling distance multiplier.
-  #multiplier: 3
+  multiplier: 3
 
 # Font configuration
 font:
@@ -135,7 +135,7 @@ colors:
     green:   '#b8bb26'
     yellow:  '#fabd2f'
     blue:    '#076678'
-    magenta: '#d3869b'
+    magenta: '#b16286'
     cyan:    '#689d6a'
     white:   '#ebdbb2'
 
@@ -146,7 +146,7 @@ colors:
     green:   '#b8bb26'
     yellow:  '#fabd2f'
     blue:    '#83a598'
-    magenta: '#d3869b'
+    magenta: '#b16286'
     cyan:    '#8ec07c'
     white:   '#ebdbb2'
 
