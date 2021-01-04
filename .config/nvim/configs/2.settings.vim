@@ -72,6 +72,7 @@ set clipboard=unnamedplus
 set incsearch
 set hlsearch
 autocmd InsertEnter * :let @/=""
+"map <C-h> :let @/=""<CR>
 
 " 2 spaces.
 set shiftwidth=2

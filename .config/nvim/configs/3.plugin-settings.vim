@@ -1,7 +1,4 @@
 " theme
-"highlight Normal ctermbg=None
-"let g:gruvbox_italic=1
-"let g:gruvbox_bold=1
 let g:gruvbox_filetype_hi_groups = 1
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_strings = 1
@@ -26,23 +23,23 @@ command PrettierPhp call PrettierPhpCursor()
 " format on save
 autocmd BufwritePre *.php PrettierPhp
 
+" sandwich
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+
 " highlight words
 let g:Illuminate_delay = 100
 
 " hightlight colors
 lua require'colorizer'.setup()
 
-" sandwich
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-
-" for ejs files
-au BufRead,BufNewFile *.ejs set ft=html
-au BufRead,BufNewFile *.ejs set ft=mason
-
 " indent line
 let g:indentLine_color_term = 239
 let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify', 'text', 'help']
+
+" for ejs files
+au BufRead,BufNewFile *.ejs set ft=html
+au BufRead,BufNewFile *.ejs set ft=mason
 
 " nerdcommenter
 nmap <Space>c :call NERDComment(0,"toggle")<CR>
@@ -60,6 +57,7 @@ let g:user_emmet_leader_key=','
 " easymotion
 nmap <silent> ;; <Plug>(easymotion-overwin-f)
 nmap <silent> ;l <Plug>(easymotion-overwin-line)
+nmap / <Plug>(easymotion-sn)
 
 " Multiple Cursor
 "let g:multi_cursor_use_default_mapping=0
