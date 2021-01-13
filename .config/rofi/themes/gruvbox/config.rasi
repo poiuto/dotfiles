@@ -15,9 +15,7 @@
 
    light1:           #e6e1cf;
 
-   transparent:      rgba(0,0,0,0);
-
-   background-color: @transparent;
+   background-color: @dark1;
    border-color:     @green;
    text-color:       @dark3;
    dark-text-color:  @dark4;
@@ -28,8 +26,7 @@
 }
 
 window {
-   transparency: "screenshot";
-   background-color: @transparent;
+   background-color: @background-color;
    width: 300px;
    height: 210px;
    padding: 10px;

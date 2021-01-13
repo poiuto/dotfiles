@@ -4,6 +4,7 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.previewAction.onHover": false,
   "explorer.icon.enableVimDevicons": false,
+  "coc.source.file.ignoreHidden": false,
   "explorer.keyMappings.global": {
     "<cr>": ["expandable?", ["expanded?", "collapse", "expand"], "open"],
     "v": "open:vsplit"
@@ -45,12 +46,7 @@
   "coc.preferences.hoverTarget": "float",
   "typescript.showUnused": true,
   "javascript.showUnused": true,
-  "cSpell.userWords": [
-    "gruvbox",
-    "gruvbox9",
-    "require'colorizer",
-    "startify"
-  ],
+  "cSpell.userWords": ["gruvbox", "gruvbox9", "require'colorizer", "startify"],
   // actions
   "coc-actions.hideCursor": false,
   "coc-actions.useCursorLine": true,

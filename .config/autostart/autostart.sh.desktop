@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Exec=/home/poiuto/Documents/autostart/autostart.sh
+Exec=sh -c '$HOME/.config/remapkey/autostart.sh'
 Name=autostart.sh

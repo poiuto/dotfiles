@@ -1,4 +1,5 @@
-echo "installing zsh"
+echo "
+installing zsh"
 sudo apt-get install -y zsh
 # oh-my-zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh

@@ -3,7 +3,8 @@
 # You have to have rust/cargo installed for this to work
 
 # Install required tools
-echo "installing rustup"
+echo "
+installing rustup"
 sudo apt-get install -y cmake libfreetype6-dev libfontconfig1-dev xclip
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 rustup override set stable
@@ -11,7 +12,8 @@ rustup update stable
 sudo apt-get install -y cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
 
 # Download, compile and install Alacritty
-echo "installing alacritty"
+echo "
+installing alacritty"
 git clone https://github.com/jwilm/alacritty
 cd alacritty
 cargo build --release
