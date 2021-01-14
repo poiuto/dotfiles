@@ -64,9 +64,9 @@ bindsym $mod+Return exec kitty
 for_window [class=".*"] border pixel 1
 
 ## Launch // Browser // <><Shift> Enter ##
-bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
+bindsym $mod+Shift+Return exec firefox
 
-set_from_resource $rofiTheme rofi.theme /etc/regolith/styles/lascaille/rofi.rasi
+set_from_resource $rofiTheme rofi.theme ~/.config/rofi/config.rasi
 
 ## Launch // Application // <> Space ##
 set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $rofiTheme
@@ -80,13 +80,8 @@ bindsym $mod+Shift+space exec $i3-wm.program.launcher.cmd
 set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $rofiTheme
 bindsym $mod+Ctrl+space exec $i3-wm.program.launcher.window
 
-## Launch // This Dialog // <><Shift> ? ##
-set_from_resource $i3-wm.program.help i3-wm.program.help /usr/bin/remontoire-toggle
-bindsym $mod+Shift+question exec --no-startup-id $i3-wm.program.help
-
 ## Launch // File Search // <><Alt> Space ##
-set_from_resource $i3-wm.program.file_search i3-wm.program.file_search rofi -show find -modi find:/usr/share/rofi/modi/finder.sh
-bindsym $mod+$alt+space exec $i3-wm.program.file_search
+bindsym $mod+$alt+space exec rofi -show find -modi find:/usr/share/rofi/modi/finder.sh
 
 ###############################################################################
 # Window and Workspace Navigation
@@ -255,8 +250,9 @@ bindsym $mod+Ctrl+r restart
 ##i3-save-tree --workspace 1 > ~/.i3/workspace-1.json
 
 ## Session // Logout // <><Shift> e ##
-set_from_resource $i3-wm.program.logout i3-wm.program.logout /usr/bin/gnome-session-quit --logout
+set_from_resource $i3-wm.program.logout i3-wm.program.logout --no-startup-id qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
 bindsym $mod+Shift+e exec $i3-wm.program.logout
+
 
 ## Session // Reboot // <><Shift> b ##
 set_from_resource $i3-wm.program.reboot i3-wm.program.reboot /usr/bin/gnome-session-quit --reboot
@@ -385,7 +381,7 @@ default_border pixel 2
 default_floating_border pixel $i3-wm.floatingwindow.border.size
 
 # Specify the distance between windows in pixels. (i3-gaps)
-set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 5
+set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 0
 set_from_resource $i3-wm.gaps.outer.size i3-wm.gaps.outer.size 0
 gaps inner $i3-wm.gaps.inner.size
 gaps outer $i3-wm.gaps.outer.size
@@ -474,38 +470,35 @@ set_from_resource $i3-wm.bar.separator i3-wm.bar.separator " "
 set_from_resource $i3-wm.bar.trayoutput i3-wm.bar.trayoutput none
 set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbers yes
 
-# i3xrocks config file. Override this for custom status indicators on the bar.
-set_from_resource $i3-wm.bar.status_command i3-wm.bar.status_command i3xrocks -u ~/.config/regolith/i3xrocks/conf.d -d /etc/regolith/i3xrocks/conf.d
+###############################################################################
+# Plasma Integration
+###############################################################################
+# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
 
-# The bar configuration
-#bar {
-  #position $i3-wm.bar.position
-  #font $i3-wm.bar.font
-  #separator_symbol $i3-wm.bar.separator
-  #status_command $i3-wm.bar.status_command
-  #tray_output $i3-wm.bar.trayoutput
-  #strip_workspace_numbers $i3-wm.bar.stripworkspacenumbers
+exec --no-startup-id wmctrl -c Plasma
 
-  #colors {
-      #background $i3-wm.bar.background.color
-      #statusline $i3-wm.bar.statusline.color
-      #separator  $i3-wm.bar.separator.color
+# Don’t treat Plasma pop-ups as full-sized windows
+for_window [class="plasmashell"] floating enable
 
-##                        BORDER  BACKGROUND TEXT
-      #focused_workspace  $i3-wm.bar.workspace.focused.border.color      $i3-wm.bar.workspace.focused.background.color   $i3-wm.bar.workspace.focused.text.color
-      #active_workspace   $i3-wm.bar.workspace.active.border.color       $i3-wm.bar.workspace.active.background.color    $i3-wm.bar.workspace.active.text.color
-      #inactive_workspace $i3-wm.bar.workspace.inactive.border.color     $i3-wm.bar.workspace.inactive.background.color  $i3-wm.bar.workspace.inactive.text.color
-      #urgent_workspace   $i3-wm.bar.workspace.urgent.border.color       $i3-wm.bar.workspace.urgent.background.color    $i3-wm.bar.workspace.urgent.text.color
-  #}
-#}
+# Don’t spawn an empty window for the Plasma Desktop
+for_window [title="Desktop — Plasma"] kill, floating enable, border none
+
+# Don’t let notifications and non-interactive pop-up windows steal focus
+no_focus [class="plasmashell" window_type="notification"]
+no_focus [class="plasmashell" window_type="on_screen_display"]
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="(?i)*nextcloud*"] floating disable
+for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
 
 ###############################################################################
 # External programs launched with i3
 ###############################################################################
-
-# Start the installed regolith-compositor
-set_from_resource $i3-wm.program.compositor i3-wm.program.compositor /usr/share/regolith-compositor/init
-exec --no-startup-id $i3-wm.program.compositor
 
 # Start Rofication for notifications
 set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
@@ -529,4 +522,8 @@ exec --no-startup-id $i3-wm.program.2
 set_from_resource $i3-wm.program.3 i3-wm.program.3 :
 exec --no-startup-id $i3-wm.program.3
 
+# nitrogen
+exec --no-startup-id nitrogen --restore
+
+# polybar
 exec --no-startup-id $HOME/.config/polybar/launch.sh
