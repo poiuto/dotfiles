@@ -36,13 +36,13 @@ St.color8:	#bfbab0
 St.color9:	#fe8019
 St.font:	FiraCode Nerd Font:pixelsize=16:antialias=true:autohint=true
 
-Xcursor.size:	24
-Xcursor.theme:	Adwaita
-Xft.antialias:	1
-Xft.dpi:	96
-Xft.hinting:	1
-Xft.hintstyle:	hintslight
-Xft.rgba:	none
+!Xcursor.size:	20
+!!Xcursor.theme:	Adwaita
+!Xft.antialias:	1
+!Xft.dpi:	96
+!Xft.hinting:	1
+!Xft.hintstyle:	hintslight
+!Xft.rgba:	none
 
 i3-wm.bar.background.color:	#282828
 i3-wm.bar.font:	pango:FiraCode Nerd Font 10, FontAwesome 10

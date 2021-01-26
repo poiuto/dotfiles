@@ -6,4 +6,4 @@ PROFPATH=`grep -1 'Locked=1' ~/.mozilla/firefox/profiles.ini | grep default-rele
 sudo mkdir -p "$HOME/.mozilla/firefox/$PROFPATH/chrome"
 sudo cp $curDir/* "$HOME/.mozilla/firefox/$PROFPATH/chrome/"
 sudo rm -rf "$HOME/.mozilla/firefox/$PROFPATH/user.js"
-sudo cp $curDit/user.js "$HOME/.mozilla/firefox/$PROFPATH/"
+sudo cp "$curDir/user.js" "$HOME/.mozilla/firefox/$PROFPATH/"

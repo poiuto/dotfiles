@@ -14,4 +14,4 @@ endfor
 " C:\Users\{user}\AppData\Local\nvim-data\undo
 
 " coc
-"CocInstall coc-json coc-tsserver coc-explorer coc-actions coc-phpls coc-tabline
+"CocInstall coc-json coc-tsserver coc-explorer coc-actions coc-phpls coc-tabnine

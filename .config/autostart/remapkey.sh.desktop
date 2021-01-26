@@ -1,4 +1,4 @@
 [Desktop Entry]
-Type=Application
 Exec=sh -c '$HOME/.config/scripts/autostart/remapkey.sh'
 Name=remapkey.sh
+Type=Application

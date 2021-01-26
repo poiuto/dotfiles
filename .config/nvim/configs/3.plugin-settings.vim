@@ -10,7 +10,8 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+autocmd FileType javascript json vim typescript css scss vue md nmap <Leader>p :PrettierAsync<CR>
 
 " prettier for PHP
 function PrettierPhpCursor()
@@ -21,7 +22,8 @@ endfunction
 " define custom command
 command PrettierPhp call PrettierPhpCursor()
 " format on save
-autocmd BufwritePre *.php PrettierPhp
+"autocmd BufwritePre *.php PrettierPhp
+autocmd FileType php nmap <Leader>p :PrettierPhp<CR>
 
 " sandwich
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
@@ -38,8 +40,8 @@ let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify', 'text', 'help']
 
 " for ejs files
-au BufRead,BufNewFile *.ejs set ft=html
-au BufRead,BufNewFile *.ejs set ft=mason
+"au BufRead,BufNewFile *.ejs set ft=html
+"au BufRead,BufNewFile *.ejs set ft=mason
 
 " nerdcommenter
 nmap <Space>c :call NERDComment(0,"toggle")<CR>

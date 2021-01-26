@@ -45,6 +45,11 @@
 
 */
 
+/* hide tabs if only one */
+/*#tabbrowser-tabs*/
+/*.tabbrowser-tab[first-visible-tab='true'][last-visible-tab='true'] {*/
+  /*visibility: collapse !important;*/
+/*}*/
 .tab-background[selected="true"] {
   background: var(--mff-tab-selected-bg) !important;
 }

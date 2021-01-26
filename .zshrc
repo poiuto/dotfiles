@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 #ZSH_THEME='gruvbox-dark'
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git fast-syntax-highlighting zsh-autosuggestions)
 
@@ -102,25 +102,29 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias bat='batcat'
+#alias bat='batcat'
 
-alias sd='sudo'
-alias sdyeet='sudo rm -rf'
+alias s='sudo'
+alias srm='sudo rm -rf'
 alias mvr='mv -rf'
-alias sdmv='sudo mv -rf'
+alias smv='sudo mv'
+alias smvr='sudo mv -rf'
 alias cpr='cp -rf'
-alias sdcp='sudo cp -rf'
+alias scp='sudo cp -rf'
+alias spm='sudo pacman'
 
 alias so='source'
 alias v='nvim'
-#alias ll='ls -alF'
-#alias la='ls -A'
-#alias l='ls -CF'
-alias tree='colorls -A --tree --sd -X'
-alias ll='colorls -l --sd -X'
-alias la='colorls -A --sd -X'
-alias ld='colorls -d'
-alias lf='colorls -f'
+alias sv='sudo -E nvim'
+alias ll='ls -AlF --color -h --group-directories-first'
+alias la='ls -A --color -h --group-directories-first'
+alias l='ls -CF --color -h --group-directories-first'
+alias tree='tree -a'
+#alias tree='colorls -A --tree --sd -X'
+#alias ll='colorls -l --sd -X'
+#alias la='colorls -A --sd -X'
+#alias ld='colorls -d'
+#alias lf='colorls -f'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias h='history'
@@ -137,3 +141,9 @@ colorscript random
 
 # colorls
 #source $(dirname $(gem which colorls))/tab_complete.sh
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# cgr
+export PATH="$(composer config -g home)/vendor/bin:$PATH"
+export PATH="$HOME/.config/.composer/vendor/bin:$PATH"
+alias drush="PHP_INI_SCAN_DIR=:/etc/drush drush"
