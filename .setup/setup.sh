@@ -31,19 +31,22 @@ if [ -f "/etc/arch-release" ]; then
   # ZSH Autosuggestions 
   sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   # p10k
-  #sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  #git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
   # set zsh as default
   chsh -s /bin/zsh
 
   echo "=========================== xorg ==========================="
-  sudo pacman -S --noconfirm xorg xorg-server xorg-apps xorg-xinit
+  sudo pacman -S --noconfirm xorg xorg-server xorg-xinit xf86-video-intel
 
   echo "=========================== xfce ==========================="
   #sudo pacman -S --noconfirm xorg xorg-apps xorg-server xorg-xinit plasma kde-applications
   #systemctl enable sddm.service
-  sudo pacman -S --noconfirm xfce4 xfce4-goodies gvfs
+  sudo pacman -S --noconfirm xfce4 xfce4-goodies gvfs 
   yay -S --noconfirm xfce-polkit
+  #echo "=========================== lightdm ==========================="
+  #sudo pacman -S --noconfirm lightdm lightdm-gtk-greeter
+  #sudo systemctl enable lightdm.service
 
   echo "=========================== bat ==========================="
   sudo pacman -S --noconfirm bat tree
@@ -74,7 +77,7 @@ if [ -f "/etc/arch-release" ]; then
   curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.20.4
 
   echo "=========================== i3-gaps ==========================="
-  sudo pacman -S --noconfirm i3-gaps unclutter nitrogen rofi
+  sudo pacman -S --noconfirm i3-gaps unclutter nitrogen rofi dmenu
   yay -S --noconfirm polybar
 
   echo "=========================== kitty ==========================="
@@ -103,15 +106,26 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== zip ==========================="
   sudo pacman -S --noconfirm zip unzip rar unrar tar rsync
 
+  echo "=========================== fonts ==========================="
+  sudo pacman -S --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata # noto-fonts
   echo "=========================== libreoffice, discord ==========================="
   sudo pacman -S --noconfirm libreoffice discord
-  yay -S --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
+  #yay -S --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
 
   echo "=========================== vlc ==========================="
   sudo pacman -S --noconfirm vlc
 
   echo "=========================== sound ==========================="
   sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa
+
+  echo "=========================== redshift ==========================="
+  sudo pacman -S --noconfirm redshift-minimal xorg-xbacklight
+  chmod +x ~/.config/redshift/hooks/brightness.sh
+  sudo echo "[redshift]
+  allowed=true
+  system=false
+  users=" >> /etc/geoclue/geoclue.conf
+  sudo systemctl --user enable redshift.service --now
 
   echo "=========================== LTS kernel ==========================="
   sudo pacman -S --noconfirm linux-lts linux-lts-headers || { exit 1; }

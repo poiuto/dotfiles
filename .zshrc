@@ -11,7 +11,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 #ZSH_THEME='gruvbox-dark'
 
-#ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=(git fast-syntax-highlighting zsh-autosuggestions)
 
@@ -28,15 +28,20 @@ export LANG=en_US.UTF-8
 # gruvbox for p10k
 #source $HOME/.config/zsh/custom/themes/.zsh-theme-gruvbox-material-dark
 
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+HISTFILESIZE=1000000
+SAVEHIST=$HISTSIZE
 
 # don't put duplicate lines or lines starting with space in the history.
-export HISTCONTROL=ignoreboth
+#export HISTCONTROL=ignoreboth
 
 setopt HIST_IGNORE_DUPS
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -105,8 +110,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 #alias bat='batcat'
 
 alias s='sudo'
+alias rmr='rm -rf'
 alias srm='sudo rm -rf'
-alias mvr='mv -rf'
 alias smv='sudo mv'
 alias smvr='sudo mv -rf'
 alias cpr='cp -rf'
@@ -116,9 +121,10 @@ alias spm='sudo pacman'
 alias so='source'
 alias v='nvim'
 alias sv='sudo -E nvim'
-alias ll='ls -AlF --color -h --group-directories-first'
-alias la='ls -A --color -h --group-directories-first'
-alias l='ls -CF --color -h --group-directories-first'
+alias ls='ls -hN --color=auto --group-directories-first'
+alias ll='ls -AlF -hN --color=auto --group-directories-first'
+alias la='ls -A -hN --color=auto --group-directories-first'
+alias l='ls -CF -hN --color=auto --group-directories-first'
 alias tree='tree -a'
 #alias tree='colorls -A --tree --sd -X'
 #alias ll='colorls -l --sd -X'
@@ -127,6 +133,7 @@ alias tree='tree -a'
 #alias lf='colorls -f'
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 alias h='history'
 alias gs='git status'
 alias glog='git log --graph --decorate --oneline'
@@ -141,7 +148,7 @@ colorscript random
 
 # colorls
 #source $(dirname $(gem which colorls))/tab_complete.sh
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+#source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"

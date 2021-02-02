@@ -283,7 +283,7 @@ bindsym $mod+d exec $i3-wm.program.display
 
 ## Modify // Wifi Settings // <> w ##
 set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
-bindsym $mod+w exec $i3-wm.program.wifi
+bindsym $mod+w exec --no-startup-id ~/.config/rofi/scripts/networkmanager-dmenu/networkmanager_dmenu | rofi
 
 ## Modify // Bluetooth Settings // <> b ##
 set_from_resource $i3-wm.program.bluetooth i3-wm.program.bluetooth gnome-control-center bluetooth
@@ -453,26 +453,26 @@ set_from_resource $i3-wm.bar.stripworkspacenumbers i3-wm.bar.stripworkspacenumbe
 ###############################################################################
 # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everythiing)
 
-exec --no-startup-id wmctrl -c Plasma
+#exec --no-startup-id wmctrl -c Plasma
 
 # Don’t treat Plasma pop-ups as full-sized windows
-for_window [class="plasmashell"] floating enable
+#for_window [class="plasmashell"] floating enable
 
 # Don’t spawn an empty window for the Plasma Desktop
-for_window [title="Desktop — Plasma"] kill, floating enable, border none
+#for_window [title="Desktop — Plasma"] kill, floating enable, border none
 
 # Don’t let notifications and non-interactive pop-up windows steal focus
-no_focus [class="plasmashell" window_type="notification"]
-no_focus [class="plasmashell" window_type="on_screen_display"]
-for_window [class="Plasma"] floating enable; border none
-for_window [title="plasma-desktop"] floating enable; border none
-for_window [title="win7"] floating enable; border none
-for_window [class="krunner"] floating enable; border none
-for_window [class="Kmix"] floating enable; border none
-for_window [class="Klipper"] floating enable; border none
-for_window [class="Plasmoidviewer"] floating enable; border none
-for_window [class="(?i)*nextcloud*"] floating disable
-for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
+#no_focus [class="plasmashell" window_type="notification"]
+#no_focus [class="plasmashell" window_type="on_screen_display"]
+#for_window [class="Plasma"] floating enable; border none
+#for_window [title="plasma-desktop"] floating enable; border none
+#for_window [title="win7"] floating enable; border none
+#for_window [class="krunner"] floating enable; border none
+#for_window [class="Kmix"] floating enable; border none
+#for_window [class="Klipper"] floating enable; border none
+#for_window [class="Plasmoidviewer"] floating enable; border none
+#for_window [class="(?i)*nextcloud*"] floating disable
+#for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px
 
 ###############################################################################
 # External programs launched with i3
@@ -505,6 +505,9 @@ exec --no-startup-id nitrogen --restore
 
 # polybar
 exec --no-startup-id $HOME/.config/polybar/launch.sh
+
+# redshift
+exec --no-startup-id redshift
 
 # hide cursor
 exec --no-startup-id unclutter -idle 1 -root

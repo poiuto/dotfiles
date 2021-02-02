@@ -3,14 +3,14 @@ configuration {
 	width: 41;
 	lines: 3;
 	columns: 3;
-	font: "FontAwesome 12";
+	font: "FontAwesome 11";
 	location: 2;
 	yoffset: 200;
 	xoffset: 0;
 	fixed-num-lines: false;
 	show-icons: true;
 	drun-icon-theme: "Flat-Remix-Blue-Dark";
-	terminal: "urxvt";
+	terminal: "kitty";
 /*	run-command: "{cmd}";*/
 /*	run-list-command: "";*/
 /*	run-shell-command: "{terminal} -e {cmd}";*/
