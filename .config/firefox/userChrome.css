@@ -8,9 +8,9 @@
   --mff-tab-border-radius: 0px;
   --mff-tab-color: #fefefa;
   --mff-tab-font-family: "Cantarell", sans;
-  --mff-tab-font-size: 10pt;
+  --mff-tab-font-size: 9pt;
   --mff-tab-font-weight: 400;
-  --mff-tab-height: 22px;
+  --mff-tab-height: 16px;
   --mff-tab-pinned-bg: #458588;
   --mff-tab-selected-bg: #d65d0e;
   --mff-tab-soundplaying-bg: #b8bb26;
@@ -35,6 +35,13 @@
   --panel-disabled-color: #f9f9fa80;
   --toolbar-bgcolor: var(--mff-bg) !important;
   --urlbar-separator-color: transparent !important;
+
+  --base00: #282828;
+  --base01: #3c3836;
+  --base02: #504945;
+  --base04: #bdae93;
+  --base05: #d5c4a1;
+  --base06: #ebdbb2;
 }
 
 /*
@@ -150,6 +157,11 @@ hbox.tab-content[pinned="true"] .tab-text {
   display: none !important;
 }
 
+/* tabs */
+#tabbrowser-tabs,
+#tabbrowser-arrowscrollbox {
+  min-height: 0 !important;
+}
 /*
   _____ ___   ___  _    ___   _   ___
 |_   _/ _ \ / _ \| |  | _ ) /_\ | _ \
@@ -157,36 +169,36 @@ hbox.tab-content[pinned="true"] .tab-text {
   |_| \___/ \___/|____|___/_/  \_\_|_\
 */
 
-.urlbar-icon > image {
-  fill: var(--mff-icon-color) !important;
-  color: var(--mff-icon-color) !important;
-}
+/*.urlbar-icon > image {*/
+  /*fill: var(--mff-icon-color) !important;*/
+  /*color: var(--mff-icon-color) !important;*/
+/*}*/
 
-.toolbarbutton-text {
-  color: var(--mff-icon-color) !important;
-}
-.urlbar-icon {
-  color: var(--mff-icon-color) !important;
-}
+/*.toolbarbutton-text {*/
+  /*color: var(--mff-icon-color) !important;*/
+/*}*/
+/*.urlbar-icon {*/
+  /*color: var(--mff-icon-color) !important;*/
+/*}*/
 
-.toolbarbutton-icon {
-  /* filter: drop-shadow(0 0 0.75rem crimson); */
-}
+/*.toolbarbutton-icon {*/
+  /*[> filter: drop-shadow(0 0 0.75rem crimson); <]*/
+/*}*/
 
-#urlbar-results {
-  font-family: var(--mff-urlbar-results-font-family);
-  font-weight: var(--mff-urlbar-results-font-weight);
-  font-size: var(--mff-urlbar-results-font-size) !important;
-  color: var(--mff-urlbar-results-color) !important;
-}
+/*#urlbar-results {*/
+  /*font-family: var(--mff-urlbar-results-font-family);*/
+  /*font-weight: var(--mff-urlbar-results-font-weight);*/
+  /*font-size: var(--mff-urlbar-results-font-size) !important;*/
+  /*color: var(--mff-urlbar-results-color) !important;*/
+/*}*/
 
-.urlbarView-row[type="bookmark"] > span {
-  color: green !important;
-}
+/*.urlbarView-row[type="bookmark"] > span {*/
+  /*color: green !important;*/
+/*}*/
 
-.urlbarView-row[type="switchtab"] > span {
-  color: orange !important;
-}
+/*.urlbarView-row[type="switchtab"] > span {*/
+  /*color: orange !important;*/
+/*}*/
 
 .urlbarView-url,
 .search-panel-one-offs-container {
@@ -209,10 +221,25 @@ hbox.tab-content[pinned="true"] .tab-text {
   text-align: center !important;
 }
 
-#tracking-protection-icon-container,
-#identity-box {
-  display: none;
+/* url bar */
+#navigator-toolbox #urlbar-background {
+  /*background: var(--) !important;*/
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
+#navigator-toolbox #urlbar-zoom-button {
+  border: none !important;
+}
+
+/* buttons */
+#navigator-toolbox #nav-bar {
+  background: var(--base00) !important;
+}
+/*#tracking-protection-icon-container,*/
+/*#identity-box {*/
+  /*display: none;*/
+/*}*/
 
 #back-button > .toolbarbutton-icon {
   --backbutton-background: transparent !important;
@@ -227,79 +254,79 @@ hbox.tab-content[pinned="true"] .tab-text {
   list-style-image: url("right-arrow.svg") !important;
 }
 
-toolbar {
-  background-image: none !important;
-}
+/*toolbar {*/
+  /*background-image: none !important;*/
+/*}*/
 
-#urlbar-background {
-  opacity: 0.98 !important;
-}
+/*#urlbar-background {*/
+  /*opacity: 0.98 !important;*/
+/*}*/
 
-#navigator-toolbox,
-toolbaritem {
-  border: none !important;
-}
+/*#navigator-toolbox,*/
+/*toolbaritem {*/
+  /*border: none !important;*/
+/*}*/
 
-#urlbar-background {
-  background-color: var(--mff-bg) !important;
-  border: none !important;
-}
+/*#urlbar-background {*/
+  /*background-color: var(--mff-bg) !important;*/
+  /*border: none !important;*/
+/*}*/
 
-.toolbar-items {
-  background-color: var(--mff-bg) !important;
-}
+/*.toolbar-items {*/
+  /*background-color: var(--mff-bg) !important;*/
+/*}*/
 
-#sidebar-search-container {
-  background-color: var(--mff-sidebar-bg) !important;
-}
+/*#sidebar-search-container {*/
+  /*background-color: var(--mff-sidebar-bg) !important;*/
+/*}*/
 
-box.panel-arrowbox {
-  display: none;
-}
+/*box.panel-arrowbox {*/
+  /*display: none;*/
+/*}*/
 
-box.panel-arrowcontent {
-  border-radius: 8px !important;
-  border: none !important;
-}
+/*box.panel-arrowcontent {*/
+  /*border-radius: 8px !important;*/
+  /*border: none !important;*/
+/*}*/
 
-tab.tabbrowser-tab {
-  overflow: hidden;
-}
+/*tab.tabbrowser-tab {*/
+  /*overflow: hidden;*/
+/*}*/
 
-tab.tabbrowser-tab:hover {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
+/*tab.tabbrowser-tab:hover {*/
+  /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);*/
+/*}*/
 
-image#star-button {
-  display: none;
-}
+/*image#star-button {*/
+  /*display: none;*/
+/*}*/
 
-toolbar#nav-bar {
-  padding: var(--mff-nav-toolbar-padding) !important;
-}
+/*toolbar#nav-bar {*/
+  /*padding: var(--mff-nav-toolbar-padding) !important;*/
+/*}*/
 
-toolbar#nav-bar {
-  padding: 4px !important;
-}
+/*toolbar#nav-bar {*/
+  /*padding: 4px !important;*/
+/*}*/
 
-#urlbar {
-  max-width: 85% !important;
-  margin: 0 15% !important;
-  /* 	position: unset!important; */
-}
+/*#urlbar {*/
+  /*max-width: 85% !important;*/
+  /*margin: 0 15% !important;*/
+  /*[> 	position: unset!important; <]*/
+/*}*/
 
-#urlbar-input:focus {
-  color: var(--mff-urlbar-focused-color) !important;
-}
+/*#urlbar-input:focus {*/
+  /*color: var(--mff-urlbar-focused-color) !important;*/
+/*}*/
 
-.megabar[breakout-extend="true"]:not([open="true"]) > #urlbar-background {
-  box-shadow: none !important;
-  background-color: transparent !important;
-}
+/*.megabar[breakout-extend="true"]:not([open="true"]) > #urlbar-background {*/
+  /*box-shadow: none !important;*/
+  /*background-color: transparent !important;*/
+/*}*/
 
-toolbarbutton {
-  box-shadow: none !important;
-}
+/*toolbarbutton {*/
+  /*box-shadow: none !important;*/
+/*}*/
 
 /*
   ___ ___ ___  ___ ___   _   ___

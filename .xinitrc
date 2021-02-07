@@ -23,8 +23,6 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
-
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
@@ -32,11 +30,15 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-export GTK_IM_MODULE=ibus
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT4_IM_MODULE=ibus
-export CLUTTER_IM_MODULE=ibus
-ibus-daemon -drx
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled"	1
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Tapping Drag Enabled"	1
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Tapping Drag Lock Enabled"	0
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Tapping Button Mapping Enabled"	1, 0
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Natural Scrolling Enabled"	1
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Disable While Typing Enabled"	0
+xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Accel Speed"	0.5
 
-exec xfce4-session
+xinput set-prop "PS/2 Generic Mouse" "libinput Accel Speed" 1
+
+exec i3
+#exec xfce4-session

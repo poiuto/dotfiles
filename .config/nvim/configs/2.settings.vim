@@ -66,6 +66,8 @@ set undofile
 set undolevels=10000
 set undoreload=10000
 
+" yank to clipboard
+nmap <Leader>y "+y
 set clipboard=unnamedplus
 
 "highlight search pattern matches

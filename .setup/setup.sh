@@ -14,16 +14,19 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Syyu --noconfirm
 
   echo "=========================== yay ==========================="
-  sudo pacman -S --noconfirm base-devel curl wget
+  sudo pacman -Sy --noconfirm base-devel curl wget
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si --noconfirm
   cd ..
   sudo rm -rf yay
+  # make pacman and yay colorful and adds eye candy on the progress bar because why not
+  grep -q "^Color" /etc/pacman.conf || sed -i "s/^#Color$/Color/" /etc/pacman.conf
+  grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
 
   echo "=========================== zsh ==========================="
-  sudo pacman -S --noconfirm zsh
-    # oh-my-zsh
+  sudo pacman -Sy --noconfirm zsh
+  # oh-my-zsh
   sudo git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
   # Fast Syntax Highlighting
   sudo git clone https://github.com/zdharma/fast-syntax-highlighting.git \
@@ -37,19 +40,23 @@ if [ -f "/etc/arch-release" ]; then
   chsh -s /bin/zsh
 
   echo "=========================== xorg ==========================="
-  sudo pacman -S --noconfirm xorg xorg-server xorg-xinit xf86-video-intel
+  sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-blacklight xorg-xwininfo xf86-video-intel slock xautolock
 
-  echo "=========================== xfce ==========================="
-  #sudo pacman -S --noconfirm xorg xorg-apps xorg-server xorg-xinit plasma kde-applications
-  #systemctl enable sddm.service
-  sudo pacman -S --noconfirm xfce4 xfce4-goodies gvfs 
-  yay -S --noconfirm xfce-polkit
-  #echo "=========================== lightdm ==========================="
-  #sudo pacman -S --noconfirm lightdm lightdm-gtk-greeter
-  #sudo systemctl enable lightdm.service
+  # take quick screenshots
+  sudo pacman -Sy --noconfirm maim
+
+  echo "=========================== NTFS FAT ==========================="
+  sudo pacman -Sy --noconfirm ntfs-3g simple-mtpfs exfat-utils
+
+  #echo "=========================== xfce ==========================="
+  #sudo pacman -Sy --noconfirm xfce4 xfce4-goodies gvfs
+  #yay -Sy --noconfirm xfce-polkit
 
   echo "=========================== bat ==========================="
-  sudo pacman -S --noconfirm bat tree
+  sudo pacman -Sy --noconfirm bat tree
+
+  echo "=========================== fzf ==========================="
+  sudo pacman -Sy --noconfirm fzf
 
   echo "=========================== colorscripts ==========================="
   sudo rm -rf shell-color-scripts
@@ -61,6 +68,7 @@ if [ -f "/etc/arch-release" ]; then
   sudo cp colorscript.sh /usr/bin/colorscript
   sudo rm -rf ../shell-color-scripts
   sudo rm -rf /opt/shell-color-scripts/colorscripts/pipes*
+  sudo rm -rf /opt/shell-color-scripts/colorscripts/pukeskull
 
   for file in /opt/shell-color-scripts/colorscripts/*
   do
@@ -70,71 +78,84 @@ if [ -f "/etc/arch-release" ]; then
   sudo sed -i '/echo "\${random_colorscript}"/d' /usr/bin/colorscript
 
   echo "=========================== firefox ==========================="
-  sudo pacman -S --noconfirm firefox
+  sudo pacman -Sy --noconfirm firefox
   echo "=> copying firefox files"
-  sh $HOME/.config/firefox/copy-ff-config.sh
+  sudo sh $HOME/.config/firefox/copy-ff-config.sh
   # tridactyl
   curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.20.4
 
   echo "=========================== i3-gaps ==========================="
-  sudo pacman -S --noconfirm i3-gaps unclutter nitrogen rofi dmenu
-  yay -S --noconfirm polybar
+  sudo pacman -Sy --noconfirm i3-gaps unclutter xwallpaper rofi dmenu
+  yay -Sy --noconfirm polybar
 
   echo "=========================== kitty ==========================="
-  sudo pacman -S --noconfirm kitty
+  sudo pacman -Sy --noconfirm kitty
+
+  echo "=========================== lf ==========================="
+  yay -Sy --noconfirm lf sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
 
   echo "=========================== npm ==========================="
-  sudo pacman -S --noconfirm npm nodejs
+  sudo pacman -Sy --noconfirm npm nodejs
 
   echo "=========================== nvim ==========================="
-  sudo pacman -S --noconfirm vim neovim python-pynvim vim-clap xclip
+  sudo pacman -Sy --noconfirm vim neovim python-pynvim vim-clap xclip
 
   echo "=========================== ripgrep ==========================="
-  sudo pacman -S --noconfirm ripgrep
+  sudo pacman -Sy --noconfirm ripgrep
 
   echo "=========================== tmux ==========================="
-  sudo pacman -S --noconfirm tmux
+  sudo pacman -Sy --noconfirm tmux
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   ~/.tmux/plugins/tpm/bin/install_plugins
 
   echo "=========================== xcape ==========================="
-  sudo pacman -S --noconfirm gcc make pkg-config xcape
+  sudo pacman -Sy --noconfirm gcc make pkg-config xcape
 
   echo "=========================== mircrocode INTEL ==========================="
-  sudo pacman -S --noconfirm intel-ucode
-
-  echo "=========================== zip ==========================="
-  sudo pacman -S --noconfirm zip unzip rar unrar tar rsync
+  sudo pacman -Sy --noconfirm intel-ucode
 
   echo "=========================== fonts ==========================="
-  sudo pacman -S --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata # noto-fonts
+  sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata # noto-fonts
+
   echo "=========================== libreoffice, discord ==========================="
-  sudo pacman -S --noconfirm libreoffice discord
-  #yay -S --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
+  sudo pacman -Sy --noconfirm libreoffice discord
+  #yay -Sy --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
 
   echo "=========================== vlc ==========================="
-  sudo pacman -S --noconfirm vlc
+  sudo pacman -Sy --noconfirm vlc
 
-  echo "=========================== sound ==========================="
-  sudo pacman -S --noconfirm pulseaudio pulseaudio-alsa
+  echo "=========================== audio ==========================="
+  sudo pacman -Sy --noconfirm pulseaudio pulseaudio-alsa pamixer pulsemixer 
 
   echo "=========================== redshift ==========================="
-  sudo pacman -S --noconfirm redshift-minimal xorg-xbacklight
+  sudo pacman -Sy --noconfirm redshift-minimal xorg-xbacklight
   chmod +x ~/.config/redshift/hooks/brightness.sh
-  sudo echo "[redshift]
-  allowed=true
-  system=false
-  users=" >> /etc/geoclue/geoclue.conf
-  sudo systemctl --user enable redshift.service --now
+  #sudo echo "[redshift]
+  #allowed=true
+  #system=false
+  #users=" >> /etc/geoclue/geoclue.conf
+  #sudo systemctl --user enable redshift.service --now
 
   echo "=========================== LTS kernel ==========================="
-  sudo pacman -S --noconfirm linux-lts linux-lts-headers || { exit 1; }
+  sudo pacman -Sy --noconfirm linux-lts linux-lts-headers || { exit 1; }
 
   echo "=========================== removing orphans ==========================="
   sudo pacman -Rns --noconfirm $(pacman -Qtdq)
   sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+  echo "=========================== zip ==========================="
+  yay -Sy --noconfirm zip unzip rar tar rsync
+  
+  # getting rid of that retarded error beep sound...
+  sudo rmmod pcspkr
+  sudo bash -c 'echo "blacklist pscpkr" > /etc/modprobe.d/nobeep.conf'
+
 else
-############################ for ubuntu ############################
+  ####################################################################
+  ####################################################################
+  ############################ for ubuntu ############################
+  ####################################################################
+  ####################################################################
   echo "=========================== update ==========================="
   sudo apt-get update
   sudo apt-get upgrade
@@ -167,6 +188,7 @@ else
   sudo cp colorscript.sh /usr/bin/colorscript
   sudo rm -rf ../shell-color-scripts
   sudo rm -rf /opt/shell-color-scripts/colorscripts/pipes*
+  sudo rm -rf /opt/shell-color-scripts/colorscripts/pukeskull
 
   for file in /opt/shell-color-scripts/colorscripts/*
   do
