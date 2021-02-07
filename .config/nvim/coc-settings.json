@@ -46,9 +46,31 @@
   "coc.preferences.hoverTarget": "float",
   "typescript.showUnused": true,
   "javascript.showUnused": true,
-  "cSpell.userWords": ["gruvbox", "gruvbox9", "require'colorizer", "startify"],
+  "cSpell.userWords": [
+    "Gcommit",
+    "Gdiffsplit",
+    "Gedit",
+    "Gfetch",
+    "Ggrep",
+    "Glog",
+    "Gmerge",
+    "Gpull",
+    "Gread",
+    "Gstatus",
+    "Gwrite",
+    "gruvbox",
+    "gruvbox9",
+    "require'colorizer",
+    "startify"
+  ],
+
   // actions
   "coc-actions.hideCursor": false,
   "coc-actions.useCursorLine": true,
-  "coc-actions.showActionKind": true
+  "coc-actions.showActionKind": true,
+
+  // YAML
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": true,
+  "yaml.format.bracketSpacing": true
 }

@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/srv/http/tmp-site/index.php'
 let g:netrw_dirhist_8='/etc/NetworkManager/system-connections'
 let g:netrw_dirhist_7='/etc/php/conf.d'
 let g:netrw_dirhist_6='/etc/X11/xorg.conf.d'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/home/poiuto/.config/regolith'
 let g:netrw_dirhist_2='/home/poiuto/.config/regolith/i3xrocks/conf.d'
 let g:netrw_dirhist_1='/home/poiuto/.config/regolith/i3xrocks'
 let g:netrw_dirhist_0='/usr/lib/pm-utils/sleep.d'
-let g:netrw_dirhist_9='/etc/lightdm/lightdm.conf.d'

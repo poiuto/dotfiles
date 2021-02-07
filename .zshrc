@@ -91,7 +91,6 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -107,48 +106,47 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-#alias bat='batcat'
+alias	cp="cp -iv" 
+alias cpr='cp -ivrf'
+alias scp='sudo cp -ivrf'
+alias	mv="mv -iv" 
+alias smv='sudo mv -iv'
+alias	rm="rm -vI" 
+alias rmr='rm -vIrf'
+alias srm='sudo rm -vIrf'
+alias	mkd="mkdir -pv" 
 
+alias p='sudo pacman'
+  
 alias s='sudo'
-alias rmr='rm -rf'
-alias srm='sudo rm -rf'
-alias smv='sudo mv'
-alias smvr='sudo mv -rf'
-alias cpr='cp -rf'
-alias scp='sudo cp -rf'
-alias spm='sudo pacman'
-
 alias so='source'
-alias v='nvim'
-alias sv='sudo -E nvim'
 alias ls='ls -hN --color=auto --group-directories-first'
 alias ll='ls -AlF -hN --color=auto --group-directories-first'
 alias la='ls -A -hN --color=auto --group-directories-first'
 alias l='ls -CF -hN --color=auto --group-directories-first'
 alias tree='tree -a'
-#alias tree='colorls -A --tree --sd -X'
-#alias ll='colorls -l --sd -X'
-#alias la='colorls -A --sd -X'
-#alias ld='colorls -d'
-#alias lf='colorls -f'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
+alias bat='bat --color=always --theme=gruvbox'
 alias h='history'
+  
 alias gs='git status'
 alias glog='git log --graph --decorate --oneline'
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias :q='exit'
-alias yeet='rm -rf'
+alias yeet='rm -vIrf'
 
-# keybindings
+alias	ka="killall" 
+alias	g="git" 
+alias	f="$FILE" 
+alias	v="$EDITOR" 
+alias sv="sudo -E $EDITOR"
+alias	z="zathura"
+
 bindkey -v
 
 colorscript random
-
-# colorls
-#source $(dirname $(gem which colorls))/tab_complete.sh
-#source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"

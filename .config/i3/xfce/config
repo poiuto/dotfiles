@@ -250,23 +250,23 @@ bindsym $mod+Ctrl+r restart
 ##i3-save-tree --workspace 1 > ~/.i3/workspace-1.json
 
 ## Session // Logout // <><Shift> e ##
-set_from_resource $i3-wm.program.logout i3-wm.program.logout --no-startup-id i3-msg exit
+set_from_resource $i3-wm.program.logout i3-wm.program.logout --no-startup-id xfce4-session-logout
 bindsym $mod+Shift+e exec $i3-wm.program.logout
 
 ## Session // Reboot // <><Shift> b ##
-set_from_resource $i3-wm.program.reboot i3-wm.program.reboot --no-startup-id reboot
+set_from_resource $i3-wm.program.reboot i3-wm.program.reboot xfce4-session-logout --reboot
 bindsym $mod+Shift+b exec $i3-wm.program.reboot
 
 ## Session // Power Down // <><Shift> p ##
-set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown --no-startup-id poweroff
+set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown xfce4-session-logout --halt
 bindsym $mod+Shift+p exec $i3-wm.program.shutdown
 
 ## Session // Lock Screen // <> Escape ##
-set_from_resource $i3-wm.program.lock i3-wm.program.lock slock
-bindsym --release $mod+Escape exec $i3-wm.program.lock
+set_from_resource $i3-wm.program.lock i3-wm.program.lock xflock4
+bindsym $mod+Escape exec $i3-wm.program.lock
 
 ## Session // Sleep // <><Shift> s ##
-set_from_resource $i3-wm.program.sleep i3-wm.program.sleep --no-startup-id slock systemctl suspend-then-hibernate -i
+set_from_resource $i3-wm.program.sleep i3-wm.program.sleep xfce4-session-logout --suspend
 bindsym $mod+Shift+s exec $i3-wm.program.sleep
 
 ###############################################################################
@@ -511,6 +511,3 @@ exec --no-startup-id redshift
 
 # hide cursor
 exec --no-startup-id unclutter -idle 1 -root
-
-# remap
-exec --no-startup-id $HOME/.config/scripts/autostart/remapkey.sh

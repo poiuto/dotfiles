@@ -11,7 +11,7 @@ let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 "autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-autocmd FileType javascript json vim typescript css scss vue md nmap <Leader>p :PrettierAsync<CR>
+autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :PrettierAsync<CR>
 
 " prettier for PHP
 function PrettierPhpCursor()
@@ -57,8 +57,8 @@ let g:undotree_ShortIndicators = 1
 let g:user_emmet_leader_key=','
 
 " easymotion
-nmap <silent> ;; <Plug>(easymotion-overwin-f)
-nmap <silent> ;l <Plug>(easymotion-overwin-line)
+nmap <silent> <Leader>j <Plug>(easymotion-overwin-f)
+"nmap <silent> <Leader>jl <Plug>(easymotion-overwin-line)
 nmap / <Plug>(easymotion-sn)
 
 " Multiple Cursor
@@ -130,7 +130,7 @@ highlight SignColumn guibg=bg
 "highlight SignColumn ctermbg=bg
 
 " fugitive
-nmap <Leader>ga :Git add %:p<CR><CR>
+nmap <Leader>ga :Git add<Space>
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gc :Gcommit -v -q<CR>
 nmap <Leader>gt :Gcommit -v -q %:p<CR>
@@ -150,7 +150,7 @@ nmap <Leader>gg :diffget //2<CR>
 nmap <Leader>gj :diffget //3<CR>
 
 " highlighted yank
-let g:highlightedyank_highlight_duration = 500
+let g:highlightedyank_highlight_duration = 400
 
 " vim-clap
 let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
