@@ -1,6 +1,6 @@
 export EDITOR="nvim"
 export BROWSER="firefox"
-export TERMINAL="kitty"
+export TERMINAL="alacritty"
 export FILE="lf"
 
 export GTK_IM_MODULE=ibus
@@ -19,7 +19,7 @@ LF_ICONS=${LF_ICONS//$'\n'/:}
 export LF_ICONS
 
 if pacman -Qs libxft-bgra >/dev/null 2>&1; then
-	# Start graphical server on user's current tty if not already running.
+	# start graphical server on user's current tty if not already running.
 	[ "$(tty)" = "/dev/tty1" ] && ! pidof -s Xorg >/dev/null 2>&1 && exec startx
 else
 	echo "\033[31mIMPORTANT\033[0m: Note that \033[32m\`libxft-bgra\`\033[0m must be installed for this build of dwm.

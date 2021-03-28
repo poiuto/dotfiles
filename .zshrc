@@ -88,17 +88,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 # lf
 _zlf() {
     emulate -L zsh
@@ -136,8 +125,7 @@ zle -N _zlf_handler
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias	cp="cp -iv" 
-alias cpr='cp -ivrf'
+alias	cp='cp -ivrf' 
 alias scp='sudo cp -ivrf'
 alias	mv="mv -iv" 
 alias smv='sudo mv -iv'
@@ -145,19 +133,24 @@ alias	rm="rm -vI"
 alias rmr='rm -vIrf'
 alias srm='sudo rm -vIrf'
 alias	mkd="mkdir -pv" 
+alias smkd="sudo mkdir -pv"
 
 alias p='sudo pacman'
   
 alias s='sudo'
+alias ss='sudo systemctl'
 alias so='source'
-alias ls='ls -hN --color=auto --group-directories-first'
-alias ll='ls -AlF -hN --color=auto --group-directories-first'
-alias la='ls -A -hN --color=auto --group-directories-first'
 alias l='ls -CF -hN --color=auto --group-directories-first'
-alias tree='tree -a'
-alias bat='bat --color=always --theme=gruvbox'
-alias h='history'
+alias ls='ls -hN --color=auto --group-directories-first'
+alias sls='sudo ls -hN --color=auto --group-directories-first'
+alias ll='ls -AlF -hN --color=auto --group-directories-first'
+alias sll='sudo ls -AlF -hN --color=auto --group-directories-first'
+alias la='ls -A -hN --color=auto --group-directories-first'
+alias sla='sudo ls -A -hN --color=auto --group-directories-first'
+alias tree='tree -a --dirsfirst'
+alias bat='bat --color=always --theme=gruvbox-dark'
   
+alias	g="git" 
 alias gs='git status'
 alias glog='git log --graph --decorate --oneline'
 
@@ -168,7 +161,6 @@ alias :q='exit'
 alias yeet='rm -vIrf'
 
 alias	ka="killall" 
-alias	g="git" 
 alias	f="$FILE" 
 alias	v="$EDITOR" 
 alias sv="sudo -E $EDITOR"

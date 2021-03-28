@@ -58,8 +58,10 @@
     "Gread",
     "Gstatus",
     "Gwrite",
+    "chms",
     "gruvbox",
     "gruvbox9",
+    "jquery",
     "require'colorizer",
     "soundplaying",
     "startify",
@@ -71,7 +73,10 @@
   "coc-actions.useCursorLine": true,
   "coc-actions.showActionKind": true,
 
-  // YAML
+  // html
+  "html.autoClosingTags": true,
+
+  // yaml
   "yaml.format.enable": true,
   "yaml.format.singleQuote": true,
   "yaml.format.bracketSpacing": true

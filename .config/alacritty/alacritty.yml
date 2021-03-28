@@ -94,26 +94,23 @@
   #gtk_theme_variant: None
 
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
-  # Specifying '0' will disable scrolling.
   history: 10000
-
-  # Scrolling distance multiplier.
   multiplier: 3
+  # Automatically scroll to the bottom when new text is written to the terminal
+  auto_scroll: true
 
-# Font configuration
 font:
-  size: 9
+  size: 8
   normal:
-    family: DejaVu LGC Sans Code
-    style: Regular
+    family: DejaVuSansMono Nerd Font Mono
+    style: Book
 
   bold:
-    family: DejaVu LGC Sans Code
+    family: DejaVuSansMono Nerd Font Mono
     style: Bold
 
   italic:
-    family: DejaVu LGC Sans Code
+    family: DejaVuSansMono Nerd Font Mono
     style: Oblique
 
 # If `true`, bold text is drawn using the bright color variants.
@@ -141,7 +138,7 @@ colors:
 
   # Bright colors
   bright:
-    black:   '#d5c4a1'
+    black:   '#a89984'
     red:     '#fb4934'
     green:   '#b8bb26'
     yellow:  '#fabd2f'
@@ -151,8 +148,8 @@ colors:
     white:   '#ebdbb2'
 
   cursor:
-    cursor: '#fe8019'
-    #text: '#282828'
+    cursor: '#cccccc'
+    #text: '#111111'
 
 # Bell
 #
@@ -201,13 +198,13 @@ colors:
 # The value `0.0` is completely transparent and `1.0` is opaque.
 #background_opacity: 1.0
 
-#selection:
+selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
+  save_to_clipboard: true
 
 custom_cursor_colors: true
 cursor:
@@ -228,7 +225,7 @@ cursor:
     #   - Off: Disable blinking by default
     #   - On: Enable blinking by default
     #   - Always: Force the cursor to always blink
-    #blinking: Off
+    blinking: On
 
   # Vi mode cursor style
   #
@@ -236,7 +233,7 @@ cursor:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  vi_mode_style: Beam
+  vi_mode_style: Block
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -534,13 +531,13 @@ cursor:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
   #- { key: L,         mods: Control, mode: ~Vi,  chars: "\x0c"          }
-  #- { key: PageUp,    mods: Shift,   mode: ~Alt, action: ScrollPageUp,  }
-  #- { key: PageDown,  mods: Shift,   mode: ~Alt, action: ScrollPageDown }
+  - { key: K,    mods: Shift|Control, action: ScrollPageUp,  }
+  - { key: J,  mods: Shift|Control, action: ScrollPageDown }
   #- { key: Home,      mods: Shift,   mode: ~Alt, action: ScrollToTop,   }
   #- { key: End,       mods: Shift,   mode: ~Alt, action: ScrollToBottom }
 

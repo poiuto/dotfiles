@@ -1,7 +1,8 @@
 set encoding=UTF-8
 set t_Co=256
 set hidden
-"set wrap
+set nowrap
+set nofoldenable
 set ignorecase
 set smartcase
 set relativenumber
@@ -28,46 +29,47 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 let mapleader = " "
 
 " jumping between tabs
-nmap <Leader>1 1gt
-nmap <Leader>2 2gt
-nmap <Leader>3 3gt
-nmap <Leader>4 4gt
-nmap <Leader>5 5gt
-nmap <Leader>6 6gt
-nmap <Leader>7 7gt
-nmap <Leader>8 8gt
-nmap <Leader>9 9gt
+nnoremap <Leader>1 1gt
+nnoremap <Leader>2 2gt
+nnoremap <Leader>3 3gt
+nnoremap <Leader>4 4gt
+nnoremap <Leader>5 5gt
+nnoremap <Leader>6 6gt
+nnoremap <Leader>7 7gt
+nnoremap <Leader>8 8gt
+nnoremap <Leader>9 9gt
 " remap switching and resizing windows
-nmap <C-H> <C-W><C-H>
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
-nmap <C-L> <C-W><C-L>
-nmap <Leader>> 4<C-W>>
-nmap <Leader>< 4<C-W><
-nmap <Leader>= <C-W>=
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <Leader>> 5<C-W>>
+nnoremap <Leader>< 5<C-W><
+nnoremap <Leader>= <C-W>=
 
-nmap <Tab> >>
-nmap <S-Tab> <<
-vmap <Tab> >
-vmap <S-Tab> <
+vnoremap > >gv
+vnoremap < <gv
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >
+vnoremap <S-Tab> <
 
-
-nmap <Leader>/ :vsplit<CR>
-nmap <Leader>\ :split<CR>
+nnoremap <Leader>/ :vsplit<CR>
+nnoremap <Leader>\ :split<CR>
 
 " save session
 map <F2> :mksession! ~/vim_session<CR>   " Quick write session with F2
 map <F3> :source ~/vim_session<CR>       " And load session with F3
 
-" Persistent undo
-" C:\Users\{user}\AppData\Local\nvim-data\undo for windows
+" persistent undo
 set undodir=$HOME/.config/nvim/undo
 set undofile
 set undolevels=10000
 set undoreload=10000
 
 " yank to clipboard
-nmap <Leader>y "+y
+nnoremap <Leader>y "+y
+nnoremap Y y$
 set clipboard=unnamedplus
 
 "highlight search pattern matches
@@ -75,6 +77,13 @@ set incsearch
 set hlsearch
 autocmd InsertEnter * :let @/=""
 "map <C-h> :let @/=""<CR>
+
+" folding
+"set foldmethod=syntax
+"set nofoldenable
+"autocmd FileType html syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
+"autocmd FileType html.twig syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
+"autocmd FileType php syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 
 " 2 spaces.
 set shiftwidth=2
@@ -91,6 +100,3 @@ set directory=/tmp
 
 set autoread
 set autowrite
-
-" auto remove trailing spaces
-"autocmd BufWritePre * %s/\s\+$//e

@@ -35,7 +35,7 @@ handle_mime() {
 	text/html) w3m -dump "${FILE_PATH}" ;;
 	text/troff) man ./ "${FILE_PATH}" | col -b ;;
   text/* | */xml | */json | */lock)
-        bat --color=always --theme=gruvbox "${FILE_PATH}" ;;
+        bat --color=always --theme=gruvbox-dark "${FILE_PATH}" ;;
 	application/zip) atool --list -- "${FILE_PATH}" ;;
         image/*) chafa --fill=block --symbols=block -c 256 -s 80x"${HEIGHT}" "${FILE_PATH}" || exit 1;;
         video/* | audio/*|application/octet-stream) mediainfo "${FILE_PATH}" || exit 1;;

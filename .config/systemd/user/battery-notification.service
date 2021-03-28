@@ -1,0 +1,13 @@
+[Unit]
+Description=Battery Notification
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+ExecStart=/bin/bash %h/.config/scripts/services/battery-notification.sh
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target

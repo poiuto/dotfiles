@@ -10,38 +10,44 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-"autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
 autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :PrettierAsync<CR>
-
 " prettier for PHP
 function PrettierPhpCursor()
   let save_pos = getpos(".")
-  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=80 --parser=php
+  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=100 --parser=php
   call setpos('.', save_pos)
 endfunction
-" define custom command
 command PrettierPhp call PrettierPhpCursor()
-" format on save
-"autocmd BufwritePre *.php PrettierPhp
 autocmd FileType php nmap <Leader>p :PrettierPhp<CR>
 
 " sandwich
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 
+" quick-scope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg='#fe8019' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#b8bb26' gui=underline ctermfg=81 cterm=underline
+
 " highlight words
 let g:Illuminate_delay = 100
-
-" hightlight colors
-lua require'colorizer'.setup()
 
 " indent line
 let g:indentLine_color_term = 239
 let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify', 'text', 'help']
+" indent blankline
+let g:indent_blankline_extra_indent_level = -1
+let g:indentLine_showFirstIndentLevel = 1
+let g:indent_blankline_show_current_context = v:true
+let g:indent_blankline_context_highlight = ['class', 'function', 'method'] 
+let g:indent_blankline_context_highlight = 'Function'
 
 " for ejs files
 "au BufRead,BufNewFile *.ejs set ft=html
 "au BufRead,BufNewFile *.ejs set ft=mason
+
+" .theme files
+au BufRead,BufNewFile *.theme set ft=php
 
 " nerdcommenter
 nmap <Space>c :call NERDComment(0,"toggle")<CR>
@@ -53,12 +59,11 @@ let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
 
-  " ,, to trigger emmet
+" ,, to trigger emmet
 let g:user_emmet_leader_key=','
 
 " easymotion
 nmap <silent> <Leader>j <Plug>(easymotion-overwin-f)
-"nmap <silent> <Leader>jl <Plug>(easymotion-overwin-line)
 nmap / <Plug>(easymotion-sn)
 
 " Multiple Cursor
@@ -73,7 +78,6 @@ let g:multi_cursor_skip_key            = '<C-x>'
 "let g:multi_cursor_quit_key            = '<Esc>'
 
 " coc
-" coc-spell-checker, coc-actions
 " applying codeAction to the selected region.xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
@@ -112,7 +116,6 @@ set statusline^=%{coc#status()}%{StatusDiagnostic()}
 nmap <Leader>e :CocCommand explorer<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
-
 " gitgutter
 let g:gitgutter_sign_added = ''
 let g:gitgutter_sign_modified = ''
@@ -120,14 +123,11 @@ let g:gitgutter_sign_removed = ''
 let g:gitgutter_sign_removed_first_line = ''
 let g:gitgutter_sign_modified_removed = ''
 let g:gitgutter_override_sign_column_highlight = 1
-highlight GitGutterAdd guibg=bg
-highlight GitGutterChange guibg=bg
-highlight GitGutterDelete guibg=bg
-"highlight GitGutterAdd guifg=bg
-"highlight GitGutterChange guifg=bg
-"highlight GitGutterDelete guifg=bg
+"highlight GitGutterAdd guibg=bg
+"highlight GitGutterChange guibg=bg
+"highlight GitGutterDelete guibg=bg
 highlight SignColumn guibg=bg
-"highlight SignColumn ctermbg=bg
+highlight CursorLineNr guibg=bg
 
 " fugitive
 nmap <Leader>ga :Git add<Space>
@@ -154,13 +154,48 @@ let g:highlightedyank_highlight_duration = 400
 
 " vim-clap
 let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
+nmap <silent> <Leader>fe :Clap filer<CR>
 nmap <silent> <Leader>ff :Clap files! --hidden .<CR>
+nmap <silent> <Leader>fn :Clap files! +name-only --hidden .<CR>
 nmap <silent> <Leader>fb :Clap buffers!<CR>
 nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
 nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
 nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
-nmap <silent> <Leader>fy :Clap yanks!<CR>
 let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-e': 'split', 'ctrl-v': 'vsplit' }
+let g:clap_layout = { 'relative': 'editor' }
+let g:clap_preview_direction = 'LR' " UD for horizontally
+
+" treesitter
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+lua <<EOF
+require'colorizer'.setup(
+  {
+    '*'
+  },
+  {
+    RGB      = true;
+    RRGGBB   = true;
+    names    = true;
+    RRGGBBAA = true;
+    rgb_fn   = true;
+    hsl_fn   = true;
+    css      = true;
+    css_fn   = true;
+    mode     = 'background';
+  }
+)
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = false,
+    disable = {},
+  },
+  indent = {
+    enable = true
+  },
+}
+EOF
 
 " lightline
 "{{{lightline.vim

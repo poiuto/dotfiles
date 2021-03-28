@@ -29,6 +29,10 @@
 ###############################################################################
 
 set $mod Mod4
+set $alt Mod1
+
+set $main_monitor DP-3
+set $external_monitor VGA-0
 
 ###############################################################################
 # Workspace Names
@@ -55,20 +59,46 @@ set $ws17 "17"
 set $ws18 "18"
 set $ws19 "19"
 
+workspace $ws1 output $main_monitor
+workspace $ws2 output $main_monitor
+workspace $ws3 output $main_monitor
+workspace $ws4 output $main_monitor
+workspace $ws5 output $main_monitor
+workspace $ws6 output $main_monitor
+workspace $ws7 output $main_monitor
+workspace $ws8 output $main_monitor
+workspace $ws9 output $main_monitor
+workspace $ws10 output $main_monitor
+workspace $ws11 output $external_monitor
+workspace $ws12 output $external_monitor
+workspace $ws13 output $external_monitor
+workspace $ws14 output $external_monitor
+workspace $ws15 output $external_monitor
+workspace $ws16 output $external_monitor
+workspace $ws17 output $external_monitor
+workspace $ws18 output $external_monitor
+workspace $ws19 output $external_monitor
+
 ###############################################################################
 # brightness, audio
 ###############################################################################
-bindcode 232 exec xbacklight -20
-bindcode 233 exec xbacklight +20
-bindcode 122 exec amixer set Master 7%-
-bindcode 123 exec amixer set Master 7%+
+bindcode 232 exec ~/.config/scripts/notifications/brightness-control.sh down
+bindcode 233 exec ~/.config/scripts/notifications/brightness-control.sh up
+bindcode 121 exec ~/.config/scripts/notifications/volume-control.sh mute
+bindcode 122 exec ~/.config/scripts/notifications/volume-control.sh down
+bindcode 123 exec ~/.config/scripts/notifications/volume-control.sh up
+
+# screenshot
+bindsym $mod+p exec  flameshot gui
+bindsym Print exec flameshot screen -p ~/Pictures/screenshots
+bindsym $mod+Print exec flameshot full -p ~/Pictures/screenshots
 
 ###############################################################################
 # Launcher dialogs
 ###############################################################################
 
 ## Launch // Terminal // <> Enter ##
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec alacritty
 for_window [class=".*"] border pixel 1
 
 ## Launch // Browser // <><Shift> Enter ##
@@ -196,38 +226,15 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 ## Modify // Move Window to Workspace 11 - 19// <><Ctrl><Shift> 0..9 ##
-bindsym $mod+Shift+Ctrl+1 move container to workspace number $ws11
-bindsym $mod+Shift+Ctrl+2 move container to workspace number $ws12
-bindsym $mod+Shift+Ctrl+3 move container to workspace number $ws13
-bindsym $mod+Shift+Ctrl+4 move container to workspace number $ws14
-bindsym $mod+Shift+Ctrl+5 move container to workspace number $ws15
-bindsym $mod+Shift+Ctrl+6 move container to workspace number $ws16
-bindsym $mod+Shift+Ctrl+7 move container to workspace number $ws17
-bindsym $mod+Shift+Ctrl+8 move container to workspace number $ws18
-bindsym $mod+Shift+Ctrl+9 move container to workspace number $ws19
-
-# move focused container to workspace, move to workspace
-## Modify // Carry Window to Workspace 1 - 10// <><Alt> 0..9 ##
-bindsym $mod+$alt+1 move container to workspace number $ws1; workspace number $ws1
-bindsym $mod+$alt+2 move container to workspace number $ws2; workspace number $ws2
-bindsym $mod+$alt+3 move container to workspace number $ws3; workspace number $ws3
-bindsym $mod+$alt+4 move container to workspace number $ws4; workspace number $ws4
-bindsym $mod+$alt+5 move container to workspace number $ws5; workspace number $ws5
-bindsym $mod+$alt+6 move container to workspace number $ws6; workspace number $ws6
-bindsym $mod+$alt+7 move container to workspace number $ws7; workspace number $ws7
-bindsym $mod+$alt+8 move container to workspace number $ws8; workspace number $ws8
-bindsym $mod+$alt+9 move container to workspace number $ws9; workspace number $ws9
-bindsym $mod+$alt+0 move container to workspace number $ws10; workspace number $ws10
-## Modify // Carry Window to Workspace 11 - 19 // <><Alt><Ctrl> 0..9 ##
-bindsym $mod+$alt+Ctrl+1 move container to workspace number $ws11; workspace number $ws11
-bindsym $mod+$alt+Ctrl+2 move container to workspace number $ws12; workspace number $ws12
-bindsym $mod+$alt+Ctrl+3 move container to workspace number $ws13; workspace number $ws13
-bindsym $mod+$alt+Ctrl+4 move container to workspace number $ws14; workspace number $ws14
-bindsym $mod+$alt+Ctrl+5 move container to workspace number $ws15; workspace number $ws15
-bindsym $mod+$alt+Ctrl+6 move container to workspace number $ws16; workspace number $ws16
-bindsym $mod+$alt+Ctrl+7 move container to workspace number $ws17; workspace number $ws17
-bindsym $mod+$alt+Ctrl+8 move container to workspace number $ws18; workspace number $ws18
-bindsym $mod+$alt+Ctrl+9 move container to workspace number $ws19; workspace number $ws19
+bindsym $mod+$alt+1 move container to workspace number $ws11
+bindsym $mod+$alt+2 move container to workspace number $ws12
+bindsym $mod+$alt+3 move container to workspace number $ws13
+bindsym $mod+$alt+4 move container to workspace number $ws14
+bindsym $mod+$alt+5 move container to workspace number $ws15
+bindsym $mod+$alt+6 move container to workspace number $ws16
+bindsym $mod+$alt+7 move container to workspace number $ws17
+bindsym $mod+$alt+8 move container to workspace number $ws18
+bindsym $mod+$alt+9 move container to workspace number $ws19
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -283,8 +290,7 @@ set_from_resource $i3-wm.program.settings i3-wm.program.settings xfce4-settings-
 bindsym $mod+s exec $i3-wm.program.settings
 
 ## Modify // Display Settings // <> d ##
-set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center display
-bindsym $mod+d exec $i3-wm.program.display
+bindsym --release $mod+d exec ~/.config/scripts/displayselect
 
 ## Modify // Wifi Settings // <> w ##
 set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
@@ -444,8 +450,8 @@ font $i3-wm.font
 ###############################################################################
 
 # start Rofication for notifications
-set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
-exec --no-startup-id $i3-wm.program.notifications
+#set_from_resource $i3-wm.program.notifications i3-wm.program.notifications /usr/bin/rofication-daemon
+#exec --no-startup-id $i3-wm.program.notifications
 
 # wallpaper
 exec --no-startup-id xwallpaper --stretch $HOME/.config/wallpaper/wall.png
@@ -454,6 +460,7 @@ exec --no-startup-id xwallpaper --stretch $HOME/.config/wallpaper/wall.png
 exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 # redshift
+exec --no-startup-id pkill -9 redshift
 exec --no-startup-id redshift
 
 # hide cursor

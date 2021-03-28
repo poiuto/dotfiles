@@ -36,6 +36,7 @@ xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Tapping Drag Lock Enabled
 xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Tapping Button Mapping Enabled"	1, 0
 xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Natural Scrolling Enabled"	1
 xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Disable While Typing Enabled"	0
+libinput Disable While Typing Enabled Default
 xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Accel Speed"	0.5
 
 xinput set-prop "PS/2 Generic Mouse" "libinput Accel Speed" 1

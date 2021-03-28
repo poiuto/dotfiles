@@ -10,40 +10,34 @@
 set -e
 
 if [ -f "/etc/arch-release" ]; then
+  echo "=========================== reflector ==========================="
+  sudo pacman -Sy --noconfirm reflector
+  sudo reflector --verbose --completion-percent 100 --ipv6 --protocol https --score 50 --sort rate --save /etc/pacman.d/mirrorlist
+
   echo "=========================== update ==========================="
   sudo pacman -Syyu --noconfirm
 
   echo "=========================== yay ==========================="
-  sudo pacman -Sy --noconfirm base-devel curl wget
+  sudo pacman -Sy --noconfirm base-devel curl wget git tig
   git clone https://aur.archlinux.org/yay.git
   cd yay
-  makepkg -si --noconfirm
+  sudo makepkg -si --noconfirm
   cd ..
   sudo rm -rf yay
   # make pacman and yay colorful and adds eye candy on the progress bar because why not
-  grep -q "^Color" /etc/pacman.conf || sed -i "s/^#Color$/Color/" /etc/pacman.conf
-  grep -q "ILoveCandy" /etc/pacman.conf || sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
-
-  echo "=========================== zsh ==========================="
-  sudo pacman -Sy --noconfirm zsh
-  # oh-my-zsh
-  sudo git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-  # Fast Syntax Highlighting
-  sudo git clone https://github.com/zdharma/fast-syntax-highlighting.git \
-    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-  # ZSH Autosuggestions 
-  sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  # p10k
-  sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-  #git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-  # set zsh as default
-  chsh -s /bin/zsh
+  sudo grep -q "^Color" /etc/pacman.conf || sudo sed -i "s/^#Color$/Color/" /etc/pacman.conf
+  sudo grep -q "ILoveCandy" /etc/pacman.conf || sudo sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
 
   echo "=========================== xorg ==========================="
-  sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-blacklight xorg-xwininfo xf86-video-intel slock xautolock
+  sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-blacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
+
+  echo "=========================== slock ==========================="
+  sudo pacman -Sy --noconfirm slock xautolock
+  # lock the screen on resume from suspend
+  sudo sh $HOME/.config/scripts/services/service-lockscreen-on-suspend.sh
 
   # take quick screenshots
-  sudo pacman -Sy --noconfirm maim
+  sudo pacman -Sy --noconfirm flameshot
 
   echo "=========================== NTFS FAT ==========================="
   sudo pacman -Sy --noconfirm ntfs-3g simple-mtpfs exfat-utils
@@ -51,6 +45,21 @@ if [ -f "/etc/arch-release" ]; then
   #echo "=========================== xfce ==========================="
   #sudo pacman -Sy --noconfirm xfce4 xfce4-goodies gvfs
   #yay -Sy --noconfirm xfce-polkit
+
+  echo "=========================== zsh ==========================="
+  sudo pacman -Sy --noconfirm zsh
+  # oh-my-zsh
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+  # Fast Syntax Highlighting
+  git clone https://github.com/zdharma/fast-syntax-highlighting.git \
+    ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+  # ZSH Autosuggestions 
+  git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  # p10k
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+  #git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+  # set zsh as default
+  chsh -s /bin/zsh
 
   echo "=========================== bat ==========================="
   sudo pacman -Sy --noconfirm bat tree
@@ -82,23 +91,30 @@ if [ -f "/etc/arch-release" ]; then
   echo "=> copying firefox files"
   sudo sh $HOME/.config/firefox/copy-ff-config.sh
   # tridactyl
-  curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.20.4
+  sudo curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && sudo sh /tmp/trinativeinstall.sh 1.20.4
 
   echo "=========================== i3-gaps ==========================="
   sudo pacman -Sy --noconfirm i3-gaps unclutter xwallpaper rofi dmenu
   yay -Sy --noconfirm polybar
 
+  echo "=========================== themes & icons ==========================="
+  yay -Sy --noconfirm breeze-icons #breeze-gtk
+
+  echo "=========================== file manager ==========================="
+  yay -Sy --noconfirm lf thunar gvfs sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
+
+  echo "=========================== dunst ==========================="
+  sudo pacman -Sy --noconfirm dunst
+
   echo "=========================== kitty ==========================="
   sudo pacman -Sy --noconfirm kitty
-
-  echo "=========================== lf ==========================="
-  yay -Sy --noconfirm lf sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
 
   echo "=========================== npm ==========================="
   sudo pacman -Sy --noconfirm npm nodejs
 
   echo "=========================== nvim ==========================="
   sudo pacman -Sy --noconfirm vim neovim python-pynvim vim-clap xclip
+  nvim -c 'PlugUpgrade | PlugInstall | CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine | CocUpdateSync | qall'
 
   echo "=========================== ripgrep ==========================="
   sudo pacman -Sy --noconfirm ripgrep
@@ -115,7 +131,8 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm intel-ucode
 
   echo "=========================== fonts ==========================="
-  sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata # noto-fonts
+  sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata 
+  yay -Sy --noconfirm ttf-noto-fonts-simple
 
   echo "=========================== libreoffice, discord ==========================="
   sudo pacman -Sy --noconfirm libreoffice discord
@@ -129,12 +146,18 @@ if [ -f "/etc/arch-release" ]; then
 
   echo "=========================== redshift ==========================="
   sudo pacman -Sy --noconfirm redshift-minimal xorg-xbacklight
-  chmod +x ~/.config/redshift/hooks/brightness.sh
+  sudo chmod +x ~/.config/redshift/hooks/brightness.sh
   #sudo echo "[redshift]
   #allowed=true
   #system=false
   #users=" >> /etc/geoclue/geoclue.conf
   #sudo systemctl --user enable redshift.service --now
+
+  echo "=========================== services ==========================="
+  # battery notification
+  yay -Sy --noconfirm acpi light
+  systemctl --user daemon-reload
+  systemctl --user enable battery-notification.service
 
   echo "=========================== LTS kernel ==========================="
   sudo pacman -Sy --noconfirm linux-lts linux-lts-headers || { exit 1; }
@@ -236,11 +259,3 @@ else
   cd ~
   sudo rm -rf xcape
 fi
-
-#curDir="$(dirname "$(readlink -f "$0")")"
-#for file in $curDir/*
-#do
-  #if [ $file != $curDir/setup.sh ] || [ $file != $curDir/pre-install ] || [ $file != $curDir/post-install ]; then
-    #sh $file
-  #fi
-#done
