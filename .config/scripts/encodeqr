@@ -1,0 +1,16 @@
+#!/bin/sh
+
+FILE=$(mktemp)
+ENCODER=$(which qrencode)
+VIEWER=$(which sxiv)
+MESSAGE=$(xclip -o -selection clipboard)
+
+trap 'rm -f ${FILE}; exit' ERR EXIT
+
+${ENCODER} "${MESSAGE}" -s 64 -o ${FILE}
+
+notify-send -u low "Clipboard: ${MESSAGE}"
+
+sleep 1
+
+${VIEWER} ${FILE} -b -sf

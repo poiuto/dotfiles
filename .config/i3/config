@@ -98,7 +98,7 @@ bindsym $mod+Print exec flameshot full -p ~/Pictures/screenshots
 ###############################################################################
 
 ## Launch // Terminal // <> Enter ##
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 for_window [class=".*"] border pixel 1
 
 ## Launch // Browser // <><Shift> Enter ##
@@ -120,6 +120,18 @@ bindsym $mod+Ctrl+space exec $i3-wm.program.launcher.window
 
 ## Launch // File Search // <><Alt> Space ##
 bindsym $mod+$alt+space exec rofi -show find -modi find:/usr/share/rofi/modi/finder.sh
+
+## Launch // emoji // <> ` ##
+bindsym $mod+grave exec rofi -show emoji -modi emoji
+
+## Launch // calendar // <> c ##
+bindsym $mod+c exec killall calcurse || true && kitty -e calcurse 
+
+## Launch // en qr code // <> / ##
+bindsym $mod+slash exec ~/.config/scripts/encodeqr
+
+## Launch // htop // <> o ##
+bindsym $mod+o exec kitty -e htop
 
 ###############################################################################
 # Window and Workspace Navigation
@@ -245,7 +257,7 @@ hide_edge_borders smart
 # Session Management
 ###############################################################################
 
-## Session // Exit App // <><Shift> q ##
+## Session // Exit App // <> q ##
 bindsym $mod+Shift+q [con_id="__focused__"] kill
 
 ## Session // Terminate App // <><Alt> q ##
@@ -263,15 +275,15 @@ bindsym $mod+Ctrl+r restart
 
 ## Session // Logout // <><Shift> e ##
 set_from_resource $i3-wm.program.logout i3-wm.program.logout --no-startup-id i3-msg exit
-bindsym $mod+Shift+e exec $i3-wm.program.logout
+bindsym $mod+Ctrl+e exec $i3-wm.program.logout
 
 ## Session // Reboot // <><Shift> b ##
 set_from_resource $i3-wm.program.reboot i3-wm.program.reboot --no-startup-id reboot
-bindsym $mod+Shift+b exec $i3-wm.program.reboot
+bindsym $mod+Ctrl+b exec $i3-wm.program.reboot
 
 ## Session // Power Down // <><Shift> p ##
 set_from_resource $i3-wm.program.shutdown i3-wm.program.shutdown --no-startup-id poweroff
-bindsym $mod+Shift+p exec $i3-wm.program.shutdown
+bindsym $mod+Ctrl+p exec $i3-wm.program.shutdown
 
 ## Session // Lock Screen // <> Escape ##
 set_from_resource $i3-wm.program.lock i3-wm.program.lock slock
@@ -279,7 +291,7 @@ bindsym --release $mod+Escape exec $i3-wm.program.lock
 
 ## Session // Sleep // <><Shift> s ##
 set_from_resource $i3-wm.program.sleep i3-wm.program.sleep --no-startup-id slock systemctl suspend-then-hibernate -i
-bindsym $mod+Shift+s exec $i3-wm.program.sleep
+bindsym $mod+Ctrl+s exec $i3-wm.program.sleep
 
 ###############################################################################
 # System Management
@@ -291,6 +303,9 @@ bindsym $mod+s exec $i3-wm.program.settings
 
 ## Modify // Display Settings // <> d ##
 bindsym --release $mod+d exec ~/.config/scripts/displayselect
+
+## Modify // mount // <> m ##
+bindsym --release $mod+m exec ~/.config/rofi/scripts/rofi-mount
 
 ## Modify // Wifi Settings // <> w ##
 set_from_resource $i3-wm.program.wifi i3-wm.program.wifi gnome-control-center wifi
@@ -319,14 +334,12 @@ bindsym $mod+comma  exec /usr/bin/i3-snapshot -o > /tmp/i3-snapshot
 bindsym $mod+period exec /usr/bin/i3-snapshot -c < /tmp/i3-snapshot
 
 # Cause Settings app to float above tiled windows
-floating_maximum_size -1 x -1
-for_window [class="Gnome-control-center"] floating enable
+floating_maximum_size 0 x 0
 
 ###############################################################################
 # Window Resize and Gaps
 ###############################################################################
 
-## Resize // Enter Resize Mode // <> r ##
 ## Resize // Resize Window // k j h l ##
 bindsym $mod+Ctrl+h resize shrink width 6 px or 6 ppt
 bindsym $mod+Ctrl+k resize grow height 6 px or 6 ppt
@@ -337,44 +350,11 @@ bindsym $mod+Ctrl+Shift+k resize grow height 12 px or 12 ppt
 bindsym $mod+Ctrl+Shift+j resize shrink height 12 px or 12 ppt
 bindsym $mod+Ctrl+Shift+l resize grow width 12 px or 12 ppt
 
-mode "Resize Mode" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        ## Resize // Resize Window // ↑ ↓ ← → ##
-        bindsym Left resize shrink width 6 px or 6 ppt
-        bindsym Down resize grow height 6 px or 6 ppt
-        bindsym Up resize shrink height 6 px or 6 ppt
-        bindsym Right resize grow width 6 px or 6 ppt
-
-        bindsym Shift+Left resize shrink width 12 px or 12 ppt
-        bindsym Shift+Down resize grow height 12 px or 12 ppt
-        bindsym Shift+Up resize shrink height 12 px or 12 ppt
-        bindsym Shift+Right resize grow width 12 px or 12 ppt
-
-        ## Resize // Resize Window // k j h l ##
-        bindsym h resize shrink width 6 px or 6 ppt
-        bindsym k resize grow height 6 px or 6 ppt
-        bindsym j resize shrink height 6 px or 6 ppt
-        bindsym l resize grow width 6 px or 6 ppt
-
-        bindsym Shift+h resize shrink width 12 px or 12 ppt
-        bindsym Shift+k resize grow height 12 px or 12 ppt
-        bindsym Shift+j resize shrink height 12 px or 12 ppt
-        bindsym Shift+l resize grow width 12 px or 12 ppt
-
-        ## Resize // Window Gaps // + - ##
-        bindsym minus gaps inner current minus 6
-        bindsym plus gaps inner current plus 6
-        bindsym Shift+minus gaps inner current minus 12
-        bindsym Shift+plus gaps inner current plus 12
-
-        ## Resize // Exit Resize Mode // Escape or Enter ##
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym BackSpace mode "default"
-        bindsym $mod+r mode "default"
-}
-bindsym $mod+r mode "Resize Mode"
+## Resize // Window Gaps // + - ##
+bindsym $mod+Ctrl+minus gaps inner current minus 6
+bindsym $mod+Ctrl+plus gaps inner current plus 6
+bindsym $mod+Ctrl+Shift+minus gaps inner current minus 12
+bindsym $mod+Ctrl+Shift+plus gaps inner current plus 12
 
 ###############################################################################
 # i3 Appearance and Behavior
@@ -460,8 +440,7 @@ exec --no-startup-id xwallpaper --stretch $HOME/.config/wallpaper/wall.png
 exec --no-startup-id $HOME/.config/polybar/launch.sh
 
 # redshift
-exec --no-startup-id pkill -9 redshift
-exec --no-startup-id redshift
+exec --no-startup-id pkill -9 redshift || true && redshift
 
 # hide cursor
 exec --no-startup-id unclutter -idle 1 -root

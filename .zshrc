@@ -164,6 +164,7 @@ alias	ka="killall"
 alias	f="$FILE" 
 alias	v="$EDITOR" 
 alias sv="sudo -E $EDITOR"
+alias t="tmux"
 alias	z="zathura"
 
 bindkey -v

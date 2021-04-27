@@ -49,10 +49,6 @@ let g:indent_blankline_context_highlight = 'Function'
 " .theme files
 au BufRead,BufNewFile *.theme set ft=php
 
-" nerdcommenter
-nmap <Space>c :call NERDComment(0,"toggle")<CR>
-vnoremap <Space>c :call NERDComment(0,"toggle")<CR>
-
 " undotree
 nmap <Leader>u :UndotreeToggle<CR>
 let g:undotree_WindowLayout = 2
@@ -161,13 +157,14 @@ nmap <silent> <Leader>fb :Clap buffers!<CR>
 nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
 nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
 nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
-let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-e': 'split', 'ctrl-v': 'vsplit' }
+let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-v': 'split', 'ctrl-e': 'vsplit' }
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_preview_direction = 'LR' " UD for horizontally
 
 " treesitter
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+
 lua <<EOF
 require'colorizer'.setup(
   {
@@ -185,6 +182,10 @@ require'colorizer'.setup(
     mode     = 'background';
   }
 )
+
+-- kommentary
+vim.api.nvim_set_keymap("n", "<Leader>c", "<Plug>kommentary_line_default", {})
+vim.api.nvim_set_keymap("v", "<Leader>c", "<Plug>kommentary_visual_default", {})
 
 require'nvim-treesitter.configs'.setup {
   highlight = {

@@ -42,4 +42,5 @@ xinput set-prop "SynPS/2 Synaptics TouchPad"	"libinput Accel Speed"	0.5
 xinput set-prop "PS/2 Generic Mouse" "libinput Accel Speed" 1
 
 exec i3
+# exec awesome
 #exec xfce4-session

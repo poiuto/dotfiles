@@ -18,7 +18,7 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Syyu --noconfirm
 
   echo "=========================== yay ==========================="
-  sudo pacman -Sy --noconfirm base-devel curl wget git tig
+  sudo pacman -Sy --noconfirm curl wget git tig
   git clone https://aur.archlinux.org/yay.git
   cd yay
   sudo makepkg -si --noconfirm
@@ -31,12 +31,15 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== xorg ==========================="
   sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-blacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
 
+  echo "=========================== nvidia ==========================="
+  # yay -Sy --noconfirm nvidia-340xx-dkms nvidia-340xx-lts nvidia-340xx-utils
+   
   echo "=========================== slock ==========================="
   sudo pacman -Sy --noconfirm slock xautolock
   # lock the screen on resume from suspend
   sudo sh $HOME/.config/scripts/services/service-lockscreen-on-suspend.sh
 
-  # take quick screenshots
+  echo "=========================== screenshot ==========================="
   sudo pacman -Sy --noconfirm flameshot
 
   echo "=========================== NTFS FAT ==========================="
@@ -94,14 +97,21 @@ if [ -f "/etc/arch-release" ]; then
   sudo curl -fsSl https://raw.githubusercontent.com/tridactyl/tridactyl/master/native/install.sh -o /tmp/trinativeinstall.sh && sudo sh /tmp/trinativeinstall.sh 1.20.4
 
   echo "=========================== i3-gaps ==========================="
-  sudo pacman -Sy --noconfirm i3-gaps unclutter xwallpaper rofi dmenu
+  sudo pacman -Sy --noconfirm i3-gaps unclutter xwallpaper
   yay -Sy --noconfirm polybar
+
+  echo "=========================== rofi & dmenu ==========================="
+  sudo pacman -Sy --noconfirm rofi dmenu
+  yay -Sy --noconfirm rofi-emoji noto-fonts-emoji xsel 
 
   echo "=========================== themes & icons ==========================="
   yay -Sy --noconfirm breeze-icons #breeze-gtk
 
   echo "=========================== file manager ==========================="
-  yay -Sy --noconfirm lf thunar gvfs sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
+  yay -Sy --noconfirm lf thunar tumbler gvfs sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
+
+  echo "=========================== calcurse ==========================="
+  sudo pacman -Sy --noconfirm calcurse
 
   echo "=========================== dunst ==========================="
   sudo pacman -Sy --noconfirm dunst
@@ -113,7 +123,8 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm npm nodejs
 
   echo "=========================== nvim ==========================="
-  sudo pacman -Sy --noconfirm vim neovim python-pynvim vim-clap xclip
+  sudo pacman -Sy --noconfirm vim python-pynvim vim-clap xclip
+  yay -Sy --noconfirm neovim-nightly-bin
   nvim -c 'PlugUpgrade | PlugInstall | CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine | CocUpdateSync | qall'
 
   echo "=========================== ripgrep ==========================="
@@ -128,18 +139,22 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm gcc make pkg-config xcape
 
   echo "=========================== mircrocode INTEL ==========================="
-  sudo pacman -Sy --noconfirm intel-ucode
+  # sudo pacman -Sy --noconfirm intel-ucode
 
   echo "=========================== fonts ==========================="
   sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata 
   yay -Sy --noconfirm ttf-noto-fonts-simple
 
+  echo "=========================== ibus ==========================="
+  yay -Sy --noconfirm ibus ibus-bamboo
+  # ibus-daemon -drx
+
   echo "=========================== libreoffice, discord ==========================="
   sudo pacman -Sy --noconfirm libreoffice discord
   #yay -Sy --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
 
-  echo "=========================== vlc ==========================="
-  sudo pacman -Sy --noconfirm vlc
+  echo "=========================== mpv ==========================="
+  sudo pacman -Sy --noconfirm mpv
 
   echo "=========================== audio ==========================="
   sudo pacman -Sy --noconfirm pulseaudio pulseaudio-alsa pamixer pulsemixer 
