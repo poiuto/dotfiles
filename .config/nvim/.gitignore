@@ -2,4 +2,6 @@ bundle/*
 !bundle/.gitkeep
 undo/*
 !undo/.gitkeep
+session/*
+!session/.gitkeep
 .netrwhist

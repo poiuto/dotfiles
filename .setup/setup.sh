@@ -21,7 +21,7 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm curl wget git tig
   git clone https://aur.archlinux.org/yay.git
   cd yay
-  sudo makepkg -si --noconfirm
+  makepkg -si --noconfirm
   cd ..
   sudo rm -rf yay
   # make pacman and yay colorful and adds eye candy on the progress bar because why not
@@ -29,10 +29,10 @@ if [ -f "/etc/arch-release" ]; then
   sudo grep -q "ILoveCandy" /etc/pacman.conf || sudo sed -i "/#VerbosePkgLists/a ILoveCandy" /etc/pacman.conf
 
   echo "=========================== xorg ==========================="
-  sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-blacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
+  sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-xbacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
 
   echo "=========================== nvidia ==========================="
-  # yay -Sy --noconfirm nvidia-340xx-dkms nvidia-340xx-lts nvidia-340xx-utils
+  yay -Sy --noconfirm nvidia-340xx-dkms nvidia-340xx-lts nvidia-340xx-utils
    
   echo "=========================== slock ==========================="
   sudo pacman -Sy --noconfirm slock xautolock
@@ -43,7 +43,8 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm flameshot
 
   echo "=========================== NTFS FAT ==========================="
-  sudo pacman -Sy --noconfirm ntfs-3g simple-mtpfs exfat-utils
+  sudo pacman -Sy --noconfirm ntfs-3g exfat-utils
+  yay -Sy --noconfirm simple-mtpfs
 
   #echo "=========================== xfce ==========================="
   #sudo pacman -Sy --noconfirm xfce4 xfce4-goodies gvfs
@@ -102,10 +103,10 @@ if [ -f "/etc/arch-release" ]; then
 
   echo "=========================== rofi & dmenu ==========================="
   sudo pacman -Sy --noconfirm rofi dmenu
-  yay -Sy --noconfirm rofi-emoji noto-fonts-emoji xsel 
+  yay -Sy --noconfirm rofi-emoji xsel 
 
   echo "=========================== themes & icons ==========================="
-  yay -Sy --noconfirm breeze-icons #breeze-gtk
+  yay -Sy --noconfirm yaru-icon-theme yaru-colors-gtk-theme yaru-colors-icon-theme
 
   echo "=========================== file manager ==========================="
   yay -Sy --noconfirm lf thunar tumbler gvfs sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
@@ -125,7 +126,7 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== nvim ==========================="
   sudo pacman -Sy --noconfirm vim python-pynvim vim-clap xclip
   yay -Sy --noconfirm neovim-nightly-bin
-  nvim -c 'PlugUpgrade | PlugInstall | CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine | CocUpdateSync | qall'
+  nvim -c 'PlugUpgrade | PlugInstall | CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier | CocUpdateSync | qall'
 
   echo "=========================== ripgrep ==========================="
   sudo pacman -Sy --noconfirm ripgrep
@@ -139,11 +140,10 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm gcc make pkg-config xcape
 
   echo "=========================== mircrocode INTEL ==========================="
-  # sudo pacman -Sy --noconfirm intel-ucode
+  sudo pacman -Sy --noconfirm intel-ucode
 
   echo "=========================== fonts ==========================="
-  sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata 
-  yay -Sy --noconfirm ttf-noto-fonts-simple
+  sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata noto-fonts-cjk noto-fonts-emoji noto-fonts
 
   echo "=========================== ibus ==========================="
   yay -Sy --noconfirm ibus ibus-bamboo
@@ -157,10 +157,10 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm mpv
 
   echo "=========================== audio ==========================="
-  sudo pacman -Sy --noconfirm pulseaudio pulseaudio-alsa pamixer pulsemixer 
+  sudo pacman -Sy --noconfirm alsa-utils pulseaudio pulseaudio-alsa pamixer pulsemixer 
 
   echo "=========================== redshift ==========================="
-  sudo pacman -Sy --noconfirm redshift-minimal xorg-xbacklight
+  yay -Sy --noconfirm redshift-minimal
   sudo chmod +x ~/.config/redshift/hooks/brightness.sh
   #sudo echo "[redshift]
   #allowed=true
@@ -175,18 +175,18 @@ if [ -f "/etc/arch-release" ]; then
   systemctl --user enable battery-notification.service
 
   echo "=========================== LTS kernel ==========================="
-  sudo pacman -Sy --noconfirm linux-lts linux-lts-headers || { exit 1; }
+  #sudo pacman -Sy --noconfirm linux-lts linux-lts-headers || { exit 1; }
 
   echo "=========================== removing orphans ==========================="
   sudo pacman -Rns --noconfirm $(pacman -Qtdq)
-  sudo grub-mkconfig -o /boot/grub/grub.cfg
+  # sudo grub-mkconfig -o /boot/grub/grub.cfg
 
   echo "=========================== zip ==========================="
   yay -Sy --noconfirm zip unzip rar tar rsync
   
   # getting rid of that retarded error beep sound...
   sudo rmmod pcspkr
-  sudo bash -c 'echo "blacklist pscpkr" > /etc/modprobe.d/nobeep.conf'
+  sudo bash -c 'echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf'
 
 else
   ####################################################################

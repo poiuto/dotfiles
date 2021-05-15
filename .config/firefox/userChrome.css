@@ -23,7 +23,7 @@
   --mff-urlbar-results-font-family: "mononoki Nerd Font", serif;
   --mff-urlbar-results-font-size: 10pt;
   --mff-urlbar-results-font-weight: 700;
-  --mff-urlbar-results-url-color: #98c1d9;
+  --mff-urlbar-results-url-color: #282828;
   /*   --mff-tab-selected-bg: linear-gradient(90deg, rgba(232,74,95,1) 0%, rgba(255,132,124,1) 50%, rgba(254,206,168,1) 100%); */
   /*   --mff-urlbar-font-weight: 600; */
 
@@ -77,6 +77,9 @@
 }
 
 .tab-background {
+  /* background-color: var(--mff-bg) !important;
+  background-attachment: none!important;
+  background-image: none!important; */
   border: none !important;
 }
 
@@ -112,6 +115,7 @@ hbox.tab-content[pinned="true"] .tab-text {
 
 #tabbrowser-tabs {
   --tab-loading-fill: #033433 !important;
+  background-color: var(--mff-bg) !important;
 }
 
 .tab-label-container:not([textoverflow]) {

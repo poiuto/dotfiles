@@ -58,8 +58,8 @@ nnoremap <Leader>/ :vsplit<CR>
 nnoremap <Leader>\ :split<CR>
 
 " save session
-map <F2> :mksession! ~/vim_session<CR>   " Quick write session with F2
-map <F3> :source ~/vim_session<CR>       " And load session with F3
+map <F2> :mksession! ~/.config/nvim/session/vim_session<CR>   " Quick write session with F2
+map <F3> :source ~/.config/nvim/session/vim_session<CR>       " And load session with F3
 
 " persistent undo
 set undodir=$HOME/.config/nvim/undo

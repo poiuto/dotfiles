@@ -451,5 +451,5 @@ exec --no-startup-id xautolock -time 30 -locker slock
 # brightness
 exec --no-startup-id $HOME/.config/scripts/autostart/brightness.sh
 
-# remap
+# remapkey
 exec --no-startup-id $HOME/.config/scripts/autostart/remapkey.sh

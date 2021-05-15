@@ -10,11 +10,13 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :PrettierAsync<CR>
+" autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :CocInstall coc-prettier<CR>
+nmap <Leader>p <Plug>(coc-format-selected)<CR>
+vmap <Leader>p <Plug>(coc-format-selected)<CR>
 " prettier for PHP
 function PrettierPhpCursor()
   let save_pos = getpos(".")
-  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=100 --parser=php
+  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=80 --parser=php
   call setpos('.', save_pos)
 endfunction
 command PrettierPhp call PrettierPhpCursor()
@@ -157,7 +159,7 @@ nmap <silent> <Leader>fb :Clap buffers!<CR>
 nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
 nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
 nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
-let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-v': 'split', 'ctrl-e': 'vsplit' }
+let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-e': 'vsplit' }
 let g:clap_layout = { 'relative': 'editor' }
 let g:clap_preview_direction = 'LR' " UD for horizontally
 
@@ -186,6 +188,12 @@ require'colorizer'.setup(
 -- kommentary
 vim.api.nvim_set_keymap("n", "<Leader>c", "<Plug>kommentary_line_default", {})
 vim.api.nvim_set_keymap("v", "<Leader>c", "<Plug>kommentary_visual_default", {})
+require('kommentary.config').configure_language("default", {
+    prefer_single_line_comments = true,
+})
+require('kommentary.config').configure_language("php", {
+    single_line_comment_string = "//",
+})
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
