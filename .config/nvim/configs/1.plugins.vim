@@ -26,10 +26,11 @@ Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'mattn/emmet-vim'
+Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
 Plug 'pseewald/vim-anyfold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ryanoasis/vim-devicons'

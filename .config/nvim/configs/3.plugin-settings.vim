@@ -35,10 +35,10 @@ let g:Illuminate_delay = 100
 
 " indent line
 let g:indentLine_color_term = 239
-let g:indentLine_char = '│'
-let g:indentLine_fileTypeExclude = ['coc-explorer', 'startify', 'text', 'help']
+let g:indent_blankline_char = '│'
+let g:indent_blankline_filetype_exclude = ['coc-explorer', 'startify', 'text', 'help']
 " indent blankline
-let g:indent_blankline_extra_indent_level = -1
+let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indentLine_showFirstIndentLevel = 1
 let g:indent_blankline_show_current_context = v:true
 let g:indent_blankline_context_highlight = ['class', 'function', 'method'] 
@@ -89,6 +89,23 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " coc press Ctrl + O to jump to a symbol
 nmap <C-o> :CocList outline<CR>
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
 " <tab> for trigger completion and navigate to next complete item, <S-tab>
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
