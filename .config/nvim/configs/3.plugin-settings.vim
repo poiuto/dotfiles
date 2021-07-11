@@ -11,16 +11,16 @@ let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 " autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :CocInstall coc-prettier<CR>
-nmap <Leader>p <Plug>(coc-format-selected)<CR>
-vmap <Leader>p <Plug>(coc-format-selected)<CR>
+nmap <Leader>pa <Plug>(coc-format-selected)<CR>
+vmap <Leader>pa <Plug>(coc-format-selected)<CR>
 " prettier for PHP
 function PrettierPhpCursor()
   let save_pos = getpos(".")
-  %! prettier --php-version="7.4" --tab-width=2 --single-quote="true" --brace-style="1tbs" --print-width=80 --parser=php
+  %! prettier --php-version="7.4" --tab-width=4 --single-quote="true" --brace-style="1tbs" --print-width=100 --parser=php
   call setpos('.', save_pos)
 endfunction
 command PrettierPhp call PrettierPhpCursor()
-autocmd FileType php nmap <Leader>p :PrettierPhp<CR>
+nmap <Leader>pp :PrettierPhp<CR>
 
 " sandwich
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
@@ -33,23 +33,41 @@ highlight QuickScopeSecondary guifg='#b8bb26' gui=underline ctermfg=81 cterm=und
 " highlight words
 let g:Illuminate_delay = 100
 
-" indent line
-let g:indentLine_color_term = 239
-let g:indent_blankline_char = '│'
-let g:indent_blankline_filetype_exclude = ['coc-explorer', 'startify', 'text', 'help']
 " indent blankline
+let g:indentLine_color_term = 239
+let g:indent_blankline_char = '🭲'
+let g:indent_blankline_filetype_exclude = ['coc-explorer', 'startify', 'text', 'help']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
+let g:indent_blankline_use_treesitter = v:true
 let g:indentLine_showFirstIndentLevel = 1
 let g:indent_blankline_show_current_context = v:true
-let g:indent_blankline_context_highlight = ['class', 'function', 'method'] 
-let g:indent_blankline_context_highlight = 'Function'
+let g:indent_blankline_context_highlight_list = ['Warning', 'String', 'Type', 'Include', 'Label']
+let g:indent_blankline_viewport_buffer = 20
+let g:indent_blankline_context_patterns = [
+    \"class",
+    \"function",
+    \"method",
+    \"^if",
+    \"while",
+    \"for",
+    \"with",
+    \"case",
+    \"func_literal",
+    \"block",
+    \"try",
+    \"except",
+    \"argument_list",
+    \"object",
+    \"dictionary",
+    \"table",
+    \]
 
 " for ejs files
 "au BufRead,BufNewFile *.ejs set ft=html
 "au BufRead,BufNewFile *.ejs set ft=mason
 
 " .theme files
-au BufRead,BufNewFile *.theme set ft=php
+" au BufRead,BufNewFile *.theme set ft=php
 
 " undotree
 nmap <Leader>u :UndotreeToggle<CR>
@@ -64,48 +82,34 @@ let g:user_emmet_leader_key=','
 nmap <silent> <Leader>j <Plug>(easymotion-overwin-f)
 nmap / <Plug>(easymotion-sn)
 
-" Multiple Cursor
-"let g:multi_cursor_use_default_mapping=0
-"let g:multi_cursor_start_word_key      = '<C-d>'
-"let g:multi_cursor_select_all_word_key = '<C-L>'
-"let g:multi_cursor_start_key           = 'g<C-d>'
-"let g:multi_cursor_select_all_key      = 'g<C-L>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-"let g:multi_cursor_quit_key            = '<Esc>'
-
 " coc
 " applying codeAction to the selected region.xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
 nmap <silent> gp :call CocAction('doHover')<CR>
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " coc press Ctrl + O to jump to a symbol
 nmap <C-o> :CocList outline<CR>
+
+" snippets
 " Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
-
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
-
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-j>'
-
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
 " <tab> for trigger completion and navigate to next complete item, <S-tab>
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -129,7 +133,21 @@ endif
 set statusline^=%{coc#status()}%{StatusDiagnostic()}
 " coc-explorer
 nmap <Leader>e :CocCommand explorer<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+augroup coc_explorer
+  autocmd!
+  autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+augroup END
+
+" multiple Cursor
+"let g:multi_cursor_use_default_mapping=0
+"let g:multi_cursor_start_word_key      = '<C-d>'
+"let g:multi_cursor_select_all_word_key = '<C-L>'
+"let g:multi_cursor_start_key           = 'g<C-d>'
+"let g:multi_cursor_select_all_key      = 'g<C-L>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
 
 " gitgutter
 let g:gitgutter_sign_added = ''
@@ -143,6 +161,9 @@ let g:gitgutter_override_sign_column_highlight = 1
 "highlight GitGutterDelete guibg=bg
 highlight SignColumn guibg=bg
 highlight CursorLineNr guibg=bg
+
+" lazygit
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 " fugitive
 nmap <Leader>ga :Git add<Space>
@@ -213,12 +234,29 @@ require('kommentary.config').configure_language("php", {
 })
 
 require'nvim-treesitter.configs'.setup {
+  ensure_installed = { 
+    "css",
+    "python",
+    "html",
+    "javascript", 
+    "jsdoc",
+    "json", 
+    "jsonc",
+    "lua",
+    "php", 
+    "query", 
+    "regex",
+    "scss", 
+    "typescript",
+    "yaml" 
+  },
   highlight = {
-    enable = false,
-    disable = {},
+    enable = true,
+    disable = {"php", "javascript"},
   },
   indent = {
-    enable = true
+    enable = true,
+    disable = {"php", "javascript"}
   },
 }
 EOF

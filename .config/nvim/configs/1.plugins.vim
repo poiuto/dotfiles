@@ -23,15 +23,17 @@ Plug 'markonm/traces.vim'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
+Plug 'kdheepak/lazygit.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'pseewald/vim-anyfold'
+" Plug 'kana/vim-niceblock'
+" Plug 'pseewald/vim-anyfold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }

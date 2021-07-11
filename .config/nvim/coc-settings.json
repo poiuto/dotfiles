@@ -44,9 +44,12 @@
   // "diagnostic.virtualText": true, // this won't work with codelens when error on same line
   // "codeLens.enable": true,
   "coc.preferences.hoverTarget": "float",
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "typescript.showUnused": true,
   "javascript.showUnused": true,
   "cSpell.userWords": [
+    "DATEDIFF",
+    "Devicons",
     "Gcommit",
     "Gdiffsplit",
     "Gedit",
@@ -58,14 +61,19 @@
     "Gread",
     "Gstatus",
     "Gwrite",
+    "Nerdfont",
     "chms",
     "gruvbox",
     "gruvbox9",
     "jquery",
+    "poiuto",
     "require'colorizer",
     "soundplaying",
     "startify",
-    "urlbar"
+    "struct",
+    "unsubmitted",
+    "urlbar",
+    "vsplit"
   ],
 
   // actions

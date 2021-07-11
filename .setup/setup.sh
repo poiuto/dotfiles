@@ -6,7 +6,7 @@
 #nmcli device wifi list
 #nmcli device wifi connect SSID password wireless-password
 
-# exit when any command fails
+# exit if any command fails
 set -e
 
 if [ -f "/etc/arch-release" ]; then
@@ -17,8 +17,10 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== update ==========================="
   sudo pacman -Syyu --noconfirm
 
+  echo "=========================== git ==========================="
+  sudo pacman -Sy --noconfirm curl wget git tig lazygit
+
   echo "=========================== yay ==========================="
-  sudo pacman -Sy --noconfirm curl wget git tig
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si --noconfirm
@@ -92,6 +94,9 @@ if [ -f "/etc/arch-release" ]; then
 
   echo "=========================== firefox ==========================="
   sudo pacman -Sy --noconfirm firefox
+  # set firefox as default
+  xdg-mime default firefox.desktop x-scheme-handler/http
+  xdg-mime default firefox.desktop x-scheme-handler/https   
   echo "=> copying firefox files"
   sudo sh $HOME/.config/firefox/copy-ff-config.sh
   # tridactyl
@@ -124,9 +129,8 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm npm nodejs
 
   echo "=========================== nvim ==========================="
-  sudo pacman -Sy --noconfirm vim python-pynvim vim-clap xclip
-  yay -Sy --noconfirm neovim-nightly-bin
-  nvim -c 'PlugUpgrade | PlugInstall | CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier | CocUpdateSync | qall'
+  sudo pacman -Sy --noconfirm vim nvim python-pynvim vim-clap xclip
+  nvim --headless +PlugUpgrade +'PlugInstall --sync' +qa &> dev/null &
 
   echo "=========================== ripgrep ==========================="
   sudo pacman -Sy --noconfirm ripgrep
@@ -145,8 +149,11 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== fonts ==========================="
   sudo pacman -Sy --noconfirm adobe-source-sans-pro-fonts ttf-dejavu ttf-linux-libertine ttf-inconsolata noto-fonts-cjk noto-fonts-emoji noto-fonts
 
-  echo "=========================== ibus ==========================="
-  yay -Sy --noconfirm ibus ibus-bamboo
+  echo "=========================== fcitx ==========================="
+  sudo pacman -Sy --noconfirm fcitx fcitx-unikey fcitx-qt5
+
+  # echo "=========================== ibus ==========================="
+  # yay -Sy --noconfirm ibus ibus-bamboo
   # ibus-daemon -drx
 
   echo "=========================== libreoffice, discord ==========================="
@@ -154,7 +161,7 @@ if [ -f "/etc/arch-release" ]; then
   #yay -Sy --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
 
   echo "=========================== mpv ==========================="
-  sudo pacman -Sy --noconfirm mpv
+  sudo pacman -Sy --noconfirm mpv vlc
 
   echo "=========================== audio ==========================="
   sudo pacman -Sy --noconfirm alsa-utils pulseaudio pulseaudio-alsa pamixer pulsemixer 

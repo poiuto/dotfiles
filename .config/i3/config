@@ -446,10 +446,13 @@ exec --no-startup-id pkill -9 redshift || true && redshift
 exec --no-startup-id unclutter -idle 1 -root
 
 # lock screen
-exec --no-startup-id xautolock -time 30 -locker slock
+exec --no-startup-id xautolock -time 60 -locker slock
 
 # brightness
 exec --no-startup-id $HOME/.config/scripts/autostart/brightness.sh
+
+# fcitx
+exec --no-startup-id pkill -9 fcitx || true && fcitx -d
 
 # remapkey
 exec --no-startup-id $HOME/.config/scripts/autostart/remapkey.sh

@@ -8,10 +8,11 @@ set smartcase
 set relativenumber
 set number
 set number relativenumber
+set lazyredraw
 set nocompatible
 set mouse=a   " enable mouse for all mode
 set expandtab
-"set timeoutlen=500
+set sidescrolloff=15
 set background=dark
 if (has("termguicolors")) " enable true color
   set termguicolors
@@ -22,10 +23,7 @@ filetype on
 " use ripgrep instead of grep
 set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
-" jj to normal mode
-"inoremap jj <ESC>
-
-" remap leader key
+" leader key
 let mapleader = " "
 
 " jumping between tabs
@@ -38,6 +36,8 @@ nnoremap <Leader>6 6gt
 nnoremap <Leader>7 7gt
 nnoremap <Leader>8 8gt
 nnoremap <Leader>9 9gt
+nnoremap >> :tabm +1<CR>
+nnoremap << :tabm -1<CR>
 " remap switching and resizing windows
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-J> <C-W><C-J>
@@ -75,20 +75,20 @@ set clipboard=unnamedplus
 "highlight search pattern matches
 set incsearch
 set hlsearch
-autocmd InsertEnter * :let @/=""
-"map <C-h> :let @/=""<CR>
+" autocmd InsertEnter * :let @/=""
+map <C-s> :let @/=""<CR>
 
 " folding
-"set foldmethod=syntax
-"set nofoldenable
+" set foldmethod=syntax
+" set nofoldenable
 "autocmd FileType html syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 "autocmd FileType html.twig syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
-"autocmd FileType php syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
+" autocmd FileType php syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 
 " 2 spaces.
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 
 set nobackup
 set nowb

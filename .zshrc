@@ -151,8 +151,9 @@ alias tree='tree -a --dirsfirst'
 alias bat='bat --color=always --theme=gruvbox-dark'
   
 alias	g="git" 
-alias gs='git status'
-alias glog='git log --graph --decorate --oneline'
+alias   gs='git status'
+alias   glog='git log --graph --decorate --oneline'
+alias   lg='lazygit'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -163,9 +164,12 @@ alias yeet='rm -vIrf'
 alias	ka="killall" 
 alias	f="$FILE" 
 alias	v="$EDITOR" 
-alias sv="sudo -E $EDITOR"
-alias t="tmux"
+alias   sv="sudo -E $EDITOR"
+alias   tx="tmux"
 alias	z="zathura"
+
+# re-compile nvidia driver
+alias ynd="yay -Rncs --noconfirm nvidia-340xx-lts-dkms; yay -S --noconfirm nvidia-340xx-lts-dkms; reboot"
 
 bindkey -v
 

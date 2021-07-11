@@ -128,7 +128,7 @@ run_unmount() {
 }
 
 # main
-op=`printf "mount a drive or device\nunmounta drive or device" | rofi -dmenu -p "Select an operation"`
+op=`printf "mount a drive or device\nunmount a drive or device" | rofi -dmenu -p "Select an operation"`
 op=`expr "$op" : '^\([^ ]\+\)'`
 
 if [ "$op" = "mount" ]; then
