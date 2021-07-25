@@ -22,7 +22,7 @@ Plug 'qstrahl/vim-dentures'
 Plug 'markonm/traces.vim'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'mattn/emmet-vim'

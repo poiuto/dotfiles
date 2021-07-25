@@ -33,6 +33,29 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== xorg ==========================="
   sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-xbacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
 
+  echo "=========================== input ==========================="
+  # sudo pacman -Sy --noconfirm xf86-input-synaptics
+  # yay -Sy --noconfirm xf86-input-evdev-trackpoint
+  # /etc/X11/xorg.conf.d/70-synaptics.conf
+  # Section "InputClass"
+  #     Identifier "touchpad"
+  #     Driver "synaptics"
+  #     MatchIsTouchpad "on"
+  #         Option "TapButton1" "1"
+  #         Option "TapButton2" "3"
+  #         Option "TapButton3" "2"
+  #         Option "VertTwoFingerScroll" "on"
+  #         Option "HorizTwoFingerScroll" "on"
+  #         Option "CircularScrolling" "on"
+  #         Option "CircScrollTrigger" "2"
+  #         Option "EmulateTwoFingerMinZ" "40"
+  #         Option "EmulateTwoFingerMinW" "8"
+  #         Option "CoastingSpeed" "0"
+  #         Option "FingerLow" "10"
+  #         Option "FingerHigh" "20"
+  #         Option "MaxTapTime" "200"
+  # EndSection
+
   echo "=========================== nvidia ==========================="
   yay -Sy --noconfirm nvidia-340xx-dkms nvidia-340xx-lts nvidia-340xx-utils
    
@@ -41,8 +64,8 @@ if [ -f "/etc/arch-release" ]; then
   # lock the screen on resume from suspend
   sudo sh $HOME/.config/scripts/services/service-lockscreen-on-suspend.sh
 
-  echo "=========================== screenshot ==========================="
-  sudo pacman -Sy --noconfirm flameshot
+  echo "=========================== screenshot, recording ==========================="
+  sudo pacman -Sy --noconfirm flameshot simplescreenrecorder
 
   echo "=========================== NTFS FAT ==========================="
   sudo pacman -Sy --noconfirm ntfs-3g exfat-utils

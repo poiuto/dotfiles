@@ -456,3 +456,6 @@ exec --no-startup-id pkill -9 fcitx || true && fcitx -d
 
 # remapkey
 exec --no-startup-id $HOME/.config/scripts/autostart/remapkey.sh
+
+# timezone
+exec --no-startup-id sudo ntpd -qg
