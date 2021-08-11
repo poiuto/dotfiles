@@ -127,8 +127,10 @@ bindsym $mod+grave exec rofi -show emoji -modi emoji
 ## Launch // calendar // <> c ##
 bindsym $mod+c exec killall calcurse || true && kitty -e calcurse 
 
-## Launch // en qr code // <> / ##
-bindsym $mod+slash exec ~/.config/scripts/encodeqr
+## Launch // generate qr code // <> / ##
+bindsym $mod+g exec ~/.config/scripts/generate_qr
+## Launch // scan qr code // <> / ##
+bindsym $mod+s exec ~/.config/scripts/scan_qr
 
 ## Launch // htop // <> o ##
 bindsym $mod+o exec kitty -e htop
@@ -298,8 +300,8 @@ bindsym $mod+Ctrl+s exec $i3-wm.program.sleep
 ###############################################################################
 
 ## Modify // Settings // <> s ##
-set_from_resource $i3-wm.program.settings i3-wm.program.settings xfce4-settings-manager
-bindsym $mod+s exec $i3-wm.program.settings
+# set_from_resource $i3-wm.program.settings i3-wm.program.settings xfce4-settings-manager
+# bindsym $mod+s exec $i3-wm.program.settings
 
 ## Modify // Display Settings // <> d ##
 bindsym --release $mod+d exec ~/.config/scripts/displayselect
@@ -455,7 +457,7 @@ exec --no-startup-id $HOME/.config/scripts/autostart/brightness.sh
 exec --no-startup-id pkill -9 fcitx || true && fcitx -d
 
 # remapkey
-exec --no-startup-id $HOME/.config/scripts/autostart/remapkey.sh
+exec --no-startup-id sleep 2 && $HOME/.config/scripts/autostart/remapkey.sh
 
 # timezone
 exec --no-startup-id sudo ntpd -qg

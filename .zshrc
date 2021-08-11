@@ -137,6 +137,7 @@ alias smkd="sudo mkdir -pv"
 
 alias p='sudo pacman'
   
+alias cl='clear'
 alias s='sudo'
 alias ss='sudo systemctl'
 alias so='source'
@@ -173,7 +174,8 @@ alias ynd="yay -Rncs --noconfirm nvidia-340xx-lts-dkms; yay -S --noconfirm nvidi
 
 bindkey -v
 
-colorscript random
+# colorscript random
+pokemon-colorscripts -r
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"

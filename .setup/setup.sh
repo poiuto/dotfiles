@@ -17,6 +17,20 @@ if [ -f "/etc/arch-release" ]; then
   echo "=========================== update ==========================="
   sudo pacman -Syyu --noconfirm
 
+  echo "=========================== clean the package cache ==========================="
+  sudo pacman -Sy --noconfirm pacman-contrib
+  sudo mkdir /etc/pacman.d/hooks
+  sudo bash -c 'echo "[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+[Action]
+Description = Cleaning pacman cache...
+When = PostTransaction
+Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
+
   echo "=========================== git ==========================="
   sudo pacman -Sy --noconfirm curl wget git tig lazygit
 
@@ -34,6 +48,7 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-xbacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
 
   echo "=========================== input ==========================="
+  # sudo bash -c "echo 'options psmouse proto=imps' > /etc/modprobe.d/psmouse.conf"
   # sudo pacman -Sy --noconfirm xf86-input-synaptics
   # yay -Sy --noconfirm xf86-input-evdev-trackpoint
   # /etc/X11/xorg.conf.d/70-synaptics.conf
@@ -66,6 +81,8 @@ if [ -f "/etc/arch-release" ]; then
 
   echo "=========================== screenshot, recording ==========================="
   sudo pacman -Sy --noconfirm flameshot simplescreenrecorder
+  # scan qr code dependencies
+  sudo pacman -Sy --noconfirm maim zbar qrencode
 
   echo "=========================== NTFS FAT ==========================="
   sudo pacman -Sy --noconfirm ntfs-3g exfat-utils
@@ -97,23 +114,31 @@ if [ -f "/etc/arch-release" ]; then
   sudo pacman -Sy --noconfirm fzf
 
   echo "=========================== colorscripts ==========================="
-  sudo rm -rf shell-color-scripts
-  git clone https://gitlab.com/dwt1/shell-color-scripts.git
-  cd shell-color-scripts
-  sudo rm -rf /opt/shell-color-scripts || return 1
-  sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
-  sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
-  sudo cp colorscript.sh /usr/bin/colorscript
-  sudo rm -rf ../shell-color-scripts
-  sudo rm -rf /opt/shell-color-scripts/colorscripts/pipes*
-  sudo rm -rf /opt/shell-color-scripts/colorscripts/pukeskull
+  # sudo rm -rf shell-color-scripts || true
+  # git clone https://gitlab.com/dwt1/shell-color-scripts.git
+  # cd shell-color-scripts
+  # sudo rm -rf /opt/shell-color-scripts || return 1
+  # sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
+  # sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
+  # sudo cp colorscript.sh /usr/bin/colorscript
+  # sudo rm -rf ../shell-color-scripts
+  # sudo rm -rf /opt/shell-color-scripts/colorscripts/pipes*
+  # sudo rm -rf /opt/shell-color-scripts/colorscripts/pukeskull
 
-  for file in /opt/shell-color-scripts/colorscripts/*
-  do
-    sudo sed -i '/This should/d' $file
-  done
+  # for file in /opt/shell-color-scripts/colorscripts/*
+  # do
+  #   sudo sed -i '/This should/d' $file
+  # done
 
-  sudo sed -i '/echo "\${random_colorscript}"/d' /usr/bin/colorscript
+  # sudo sed -i '/echo "\${random_colorscript}"/d' /usr/bin/colorscript
+
+  ############## pokemon-colorscripts ##############
+  sudo rm -rf /usr/local/bin/pokemon-colorscripts /usr/local/opt/pokemon-colorscripts || true
+  git clone https://gitlab.com/phoneybadger/pokemon-colorscripts.git
+  cd pokemon-colorscripts
+  sudo ./install.sh
+  cd ..
+  sudo rm -rf pokemon-colorscripts
 
   echo "=========================== firefox ==========================="
   sudo pacman -Sy --noconfirm firefox
