@@ -188,6 +188,11 @@ nmap <Leader>gj :diffget //3<CR>
 " highlighted yank
 let g:highlightedyank_highlight_duration = 400
 
+" vdebug
+let g:vdebug_options = {
+\  'port' : 9001,
+\}
+
 " vim-clap
 let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
 nmap <silent> <Leader>fe :Clap filer<CR>

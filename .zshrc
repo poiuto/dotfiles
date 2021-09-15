@@ -141,7 +141,7 @@ alias cl='clear'
 alias s='sudo'
 alias ss='sudo systemctl'
 alias so='source'
-alias l='ls -CF -hN --color=auto --group-directories-first'
+# alias l='ls -CF -hN --color=auto --group-directories-first'
 alias ls='ls -hN --color=auto --group-directories-first'
 alias sls='sudo ls -hN --color=auto --group-directories-first'
 alias ll='ls -AlF -hN --color=auto --group-directories-first'
@@ -179,5 +179,5 @@ pokemon-colorscripts -r
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"
-export PATH="$HOME/.config/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.config/.composer/vendor/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 alias drush="PHP_INI_SCAN_DIR=:/etc/drush drush"

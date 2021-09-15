@@ -32,7 +32,7 @@ When = PostTransaction
 Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
 
   echo "=========================== git ==========================="
-  sudo pacman -Sy --noconfirm curl wget git tig lazygit
+  sudo pacman -Sy --noconfirm curl wget git lazygit
 
   echo "=========================== yay ==========================="
   git clone https://aur.archlinux.org/yay.git
@@ -200,10 +200,6 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
   echo "=========================== fcitx ==========================="
   sudo pacman -Sy --noconfirm fcitx fcitx-unikey fcitx-qt5
 
-  # echo "=========================== ibus ==========================="
-  # yay -Sy --noconfirm ibus ibus-bamboo
-  # ibus-daemon -drx
-
   echo "=========================== libreoffice, discord ==========================="
   sudo pacman -Sy --noconfirm libreoffice discord
   #yay -Sy --noconfirm enchant mythes-en ttf-liberation hunspell-en_US ttf-bitstream-vera pkgstats adobe-source-sans-pro-fonts gst-plugins-good ttf-droid ttf-dejavu aspell-en icedtea-web gst-libav ttf-ubuntu-font-family ttf-anonymous-pro jre8-openjdk languagetool libmythes
@@ -213,6 +209,8 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
 
   echo "=========================== audio ==========================="
   sudo pacman -Sy --noconfirm alsa-utils pulseaudio pulseaudio-alsa pamixer pulsemixer 
+  # UI
+  sudo pacman -Sy --noconfirm pavucontrol
 
   echo "=========================== redshift ==========================="
   yay -Sy --noconfirm redshift-minimal

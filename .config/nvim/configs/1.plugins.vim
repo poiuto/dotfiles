@@ -31,10 +31,13 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'tpope/vim-fugitive'
+Plug 'tommcdo/vim-fugitive-blame-ext' " :Gblame display the first line of the commit message at the bottom of the screen
 Plug 'airblade/vim-gitgutter'
 " Plug 'kana/vim-niceblock'
 " Plug 'pseewald/vim-anyfold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ryanoasis/vim-devicons'
 Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
+
+Plug 'vim-vdebug/vdebug'
 call plug#end()
