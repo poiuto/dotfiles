@@ -5,6 +5,18 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'poiuto/gruvbox9'
 Plug 'sheerun/vim-polyglot'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+"" preview media files
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
+"" coc
+Plug 'fannheyward/telescope-coc.nvim'
+" lsp
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'glepnir/lspsaga.nvim'
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'itchyny/lightline.vim'
 Plug 'macthecadillac/lightline-gitdiff'
@@ -37,7 +49,8 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'pseewald/vim-anyfold'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ryanoasis/vim-devicons'
-Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
-
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'vim-vdebug/vdebug'
+" open items from quickfix or location list
+Plug 'yssl/QFEnter'
 call plug#end()

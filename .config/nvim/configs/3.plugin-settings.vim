@@ -95,8 +95,6 @@ nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-" coc press Ctrl + O to jump to a symbol
-nmap <C-o> :CocList outline<CR>
 
 " snippets
 " Use <C-l> for trigger snippet expand.
@@ -138,16 +136,27 @@ augroup coc_explorer
   autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 augroup END
 
-" multiple Cursor
-"let g:multi_cursor_use_default_mapping=0
-"let g:multi_cursor_start_word_key      = '<C-d>'
-"let g:multi_cursor_select_all_word_key = '<C-L>'
-"let g:multi_cursor_start_key           = 'g<C-d>'
-"let g:multi_cursor_select_all_key      = 'g<C-L>'
-" let g:multi_cursor_next_key            = '<C-n>'
-" let g:multi_cursor_prev_key            = '<C-p>'
-" let g:multi_cursor_skip_key            = '<C-x>'
-" let g:multi_cursor_quit_key            = '<Esc>'
+" delete empty buffers
+function! DeleteEmptyBuffers()
+    let [i, n; empty] = [1, bufnr('$')]
+    while i <= n
+        if bufexists(i) && bufname(i) == ''
+            call add(empty, i)
+        endif
+        let i += 1
+    endwhile
+    if len(empty) > 0
+        exe 'bdelete' join(empty)
+    endif
+endfunction
+nnoremap <silent> <Leader>db :call DeleteEmptyBuffers()<CR>
+
+" QFEnter
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.open = ['<CR>', '<2-LeftMouse>']
+let g:qfenter_keymap.vopen = ['<C-v>']
+let g:qfenter_keymap.hopen = ['<C-x>']
+let g:qfenter_keymap.topen = ['<C-t>']
 
 " gitgutter
 let g:gitgutter_sign_added = ''
@@ -156,9 +165,6 @@ let g:gitgutter_sign_removed = ''
 let g:gitgutter_sign_removed_first_line = ''
 let g:gitgutter_sign_modified_removed = ''
 let g:gitgutter_override_sign_column_highlight = 1
-"highlight GitGutterAdd guibg=bg
-"highlight GitGutterChange guibg=bg
-"highlight GitGutterDelete guibg=bg
 highlight SignColumn guibg=bg
 highlight CursorLineNr guibg=bg
 
@@ -194,23 +200,72 @@ let g:vdebug_options = {
 \}
 
 " vim-clap
-let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-nmap <silent> <Leader>fe :Clap filer<CR>
-nmap <silent> <Leader>ff :Clap files! --hidden .<CR>
-nmap <silent> <Leader>fn :Clap files! +name-only --hidden .<CR>
-nmap <silent> <Leader>fb :Clap buffers!<CR>
-nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
-nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
-nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
-let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-e': 'vsplit' }
-let g:clap_layout = { 'relative': 'editor' }
-let g:clap_preview_direction = 'LR' " UD for horizontally
+" let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
+" nmap <silent> <Leader>fe :Clap filer<CR>
+" nmap <silent> <Leader>ff :Clap files! --hidden .<CR>
+" nmap <silent> <Leader>fn :Clap files! +name-only --hidden .<CR>
+" nmap <silent> <Leader>fb :Clap buffers!<CR>
+" nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
+" nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
+" nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
+" let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-e': 'vsplit' }
+" let g:clap_layout = { 'relative': 'editor' }
+" let g:clap_preview_direction = 'LR' " UD for horizontally
 
 " treesitter
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 lua <<EOF
+-- telescope
+require('telescope').setup{
+  defaults = {
+      file_sorter = require "telescope.sorters".get_fzf_sorter,
+      generic_sorter = require "telescope.sorters".get_fzf_sorter,
+      vimgrep_arguments = {
+        "rg",
+        "-uu",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "-g",
+        "!{.git, node_modules, vendor}",
+      },
+  },
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<c-w>"] = "delete_buffer",
+        }
+      }
+    }
+  }
+}
+vim.api.nvim_set_keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '-uuu', '--hidden', '-g', '!{.git, node_modules, vendor}'} })<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fe", "<cmd>lua require('telescope.builtin').file_browser()<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fo", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {})
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('media_files')
+vim.api.nvim_set_keymap("n", "<Leader>fm", "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", {})
+require('telescope').load_extension('coc')
+vim.api.nvim_set_keymap("n", "<Leader>fcr", "<cmd>Telescope coc references<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fcd", "<cmd>Telescope coc definitions<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fcD", "<cmd>Telescope coc declarations<cr>", {})
+vim.api.nvim_set_keymap("n", "<Leader>fci", "<cmd>Telescope coc implementations<cr>", {})
+
+-- lsp
+--require'lspconfig'.bashls.setup{}
+--require'lspconfig'.intelephense.setup{}
+--require'lspconfig'.phpactor.setup{}
+--require'lspconfig'.psalm.setup{}
+
 require'colorizer'.setup(
   {
     '*'

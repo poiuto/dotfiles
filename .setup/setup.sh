@@ -177,7 +177,9 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
   sudo pacman -Sy --noconfirm npm nodejs
 
   echo "=========================== nvim ==========================="
-  sudo pacman -Sy --noconfirm vim nvim python-pynvim vim-clap xclip
+  sudo pacman -Sy --noconfirm vim nvim
+  # dependencies
+  sudo pacman -Sy --noconfirm fd ueberzug bc python-pynvim xclip
   nvim --headless +PlugUpgrade +'PlugInstall --sync' +qa &> dev/null &
 
   echo "=========================== ripgrep ==========================="
