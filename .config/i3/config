@@ -82,8 +82,8 @@ workspace $ws19 output $external_monitor
 ###############################################################################
 # brightness, audio
 ###############################################################################
-bindcode 232 exec ~/.config/scripts/notifications/brightness-control.sh down
-bindcode 233 exec ~/.config/scripts/notifications/brightness-control.sh up
+# bindcode 232 exec ~/.config/scripts/notifications/brightness-control.sh down
+# bindcode 233 exec ~/.config/scripts/notifications/brightness-control.sh up
 bindcode 121 exec ~/.config/scripts/notifications/volume-control.sh mute
 bindcode 122 exec ~/.config/scripts/notifications/volume-control.sh down
 bindcode 123 exec ~/.config/scripts/notifications/volume-control.sh up

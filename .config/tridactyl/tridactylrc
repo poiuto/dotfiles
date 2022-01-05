@@ -3,6 +3,7 @@ sanitise tridactyllocal tridactylsync
 colorscheme base16-gruvbox-dark-medium
 set smoothscroll true
 unbind <C-f>
+unbind <C-b>
 bind d scrollpage 0.5
 bind u scrollpage -0.5
 bind x tabclose

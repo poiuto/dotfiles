@@ -59,6 +59,12 @@
     spacing:      10px;
     scrollbar:    false;
     padding:      2px 0px 0px;
+    lines: 15;
+    width: 41;
+    columns: 3;
+    hide-scrollbar: true;
+    fullscreen: false;
+    show-match: true;
 }
 #element {
     border: 0;

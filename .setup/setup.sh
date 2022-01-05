@@ -7,6 +7,10 @@
 #nmcli device wifi connect SSID password wireless-password
 
 # exit if any command fails
+
+# block mouse
+# sudo bash -c 'echo "blacklist psmouse" > /etc/modprobe.d/blacklist-touch.conf'
+
 set -e
 
 if [ -f "/etc/arch-release" ]; then
@@ -32,7 +36,7 @@ When = PostTransaction
 Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
 
   echo "=========================== git ==========================="
-  sudo pacman -Sy --noconfirm curl wget git lazygit
+  sudo pacman -Sy --noconfirm curl wget tk git lazygit
 
   echo "=========================== yay ==========================="
   git clone https://aur.archlinux.org/yay.git
@@ -133,12 +137,13 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
   # sudo sed -i '/echo "\${random_colorscript}"/d' /usr/bin/colorscript
 
   ############## pokemon-colorscripts ##############
-  sudo rm -rf /usr/local/bin/pokemon-colorscripts /usr/local/opt/pokemon-colorscripts || true
-  git clone https://gitlab.com/phoneybadger/pokemon-colorscripts.git
-  cd pokemon-colorscripts
-  sudo ./install.sh
-  cd ..
-  sudo rm -rf pokemon-colorscripts
+  yay -Sy --noconfirm pokemon-colorscripts-git
+  # sudo rm -rf /usr/local/bin/pokemon-colorscripts /usr/local/opt/pokemon-colorscripts || true
+  # git clone https://gitlab.com/phoneybadger/pokemon-colorscripts.git
+  # cd pokemon-colorscripts
+  # sudo ./install.sh
+  # cd ..
+  # sudo rm -rf pokemon-colorscripts
 
   echo "=========================== firefox ==========================="
   sudo pacman -Sy --noconfirm firefox
@@ -162,6 +167,7 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
   yay -Sy --noconfirm yaru-icon-theme yaru-colors-gtk-theme yaru-colors-icon-theme
 
   echo "=========================== file manager ==========================="
+  sudo pacman -Sy --noconfirm exa file-roller
   yay -Sy --noconfirm lf thunar tumbler gvfs sxiv highlight zathura zathura-pdf-mupdf poppler mediainfo w3m atool chafa odt2txt
 
   echo "=========================== calcurse ==========================="

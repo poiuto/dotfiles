@@ -2,6 +2,7 @@ export EDITOR="nvim"
 export BROWSER="firefox"
 export TERMINAL="kitty"
 export FILE="lf"
+export MAIN_MONITOR="eDP-1"
 
 LF_ICONS=$(sed ~/.config/lf/icons \
             -e '/^[ \t]*#/d'       \

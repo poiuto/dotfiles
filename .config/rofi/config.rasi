@@ -1,3 +1,5 @@
+@theme "~/.config/rofi/themes/tempus_turquesa.rasi"
+
 configuration {
 	modi: "run,drun,window";
 	width: 41;
@@ -27,15 +29,14 @@ configuration {
 /*	tokenize: true;*/
 /*	m: "-5";*/
 /*	filter: ;*/
-	hide-scrollbar: true;
-	fullscreen: false;
+	/* hide-scrollbar: true; */
+	/* fullscreen: false; */
 /*	dpi: -1;*/
 	threads: 0;
 /*	scroll-method: 0;*/
 	window-format: "{w:0}	{n:0}	{t:0}";
 	click-to-exit: true;
-	show-match: true;
-    theme: "~/.config/rofi/themes/tempus_turquesa.rasi";
+	/* show-match: true; */
 	max-history-size: 25;
 	combi-hide-mode-prefix: true;
 /*	pid: "/run/user/1000/rofi.pid";*/
@@ -76,7 +77,7 @@ configuration {
 	kb-page-next: "Control+v,Page_Down";
 	kb-row-first: "Alt+less,Home,KP_Home";
 	kb-row-last: "Alt+greater,End,KP_End";
-/*	kb-row-select: "Control+space";*/
+/* kb-row-select: "Control+space"; */
 /*	kb-screenshot: "Alt+S";*/
 /*	kb-toggle-case-sensitivity: "grave,dead_grave";*/
 /*	kb-toggle-sort: "Alt+grave";*/
@@ -117,4 +118,12 @@ configuration {
 /*	me-select-entry: "MousePrimary";*/
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
+}
+#listview {
+    lines: 10;
+    width: 41;
+    columns: 3;
+    hide-scrollbar: true;
+    fullscreen: false;
+    show-match: true;
 }

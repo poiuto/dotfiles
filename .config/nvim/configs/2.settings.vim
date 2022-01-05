@@ -9,6 +9,7 @@ set relativenumber
 set number
 set number relativenumber
 set lazyredraw
+set redrawtime=10000
 set nocompatible
 set mouse=a   " enable mouse for all mode
 set expandtab
@@ -57,17 +58,10 @@ vnoremap <S-Tab> <
 nnoremap <Leader>/ :vsplit<CR>
 nnoremap <Leader>\ :split<CR>
 
-" save session
-map <Leader>ms1 :mksession! ~/.config/nvim/session/vim_session_1<CR>
-map <Leader>ms2 :mksession! ~/.config/nvim/session/vim_session_2<CR>
-map <Leader>ms3 :mksession! ~/.config/nvim/session/vim_session_3<CR>
-map <Leader>ms4 :mksession! ~/.config/nvim/session/vim_session_5<CR>
-map <Leader>ms5 :mksession! ~/.config/nvim/session/vim_session_5<CR>
-map <Leader>ls1 :source ~/.config/nvim/session/vim_session_1<CR>
-map <Leader>ls2 :source ~/.config/nvim/session/vim_session_2<CR>
-map <Leader>ls3 :source ~/.config/nvim/session/vim_session_3<CR>
-map <Leader>ls4 :source ~/.config/nvim/session/vim_session_4<CR>
-map <Leader>ls5 :source ~/.config/nvim/session/vim_session_5<CR>
+" sessions
+map <Leader>sm :mksession! ~/.config/nvim/sessions/
+map <Leader>sl :source ~/.config/nvim/sessions/
+map <Leader>sd :!rm ~/.config/nvim/sessions/
 
 nnoremap n nzz
 
@@ -88,6 +82,9 @@ set hlsearch
 " autocmd InsertEnter * :let @/=""
 map <C-s> :let @/=""<CR>
 
+" search selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " folding
 " set foldmethod=syntax
 " set nofoldenable
@@ -95,7 +92,7 @@ map <C-s> :let @/=""<CR>
 "autocmd FileType html.twig syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 " autocmd FileType php syntax region htmlFold start="<\z(\<\(area\|base\|br\|col\|command\|embed\|hr\|img\|input\|keygen\|link\|meta\|para\|source\|track\|wbr\>\)\@![a-z-]\+\>\)\%(\_s*\_[^/]\?>\|\_s\_[^>]*\_[^>/]>\)" end="</\z1\_s*>" fold transparent keepend extend containedin=htmlHead,htmlH\d
 
-" 2 spaces.
+" 4 spaces.
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4

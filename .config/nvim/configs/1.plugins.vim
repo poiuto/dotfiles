@@ -16,7 +16,14 @@ Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 " lsp
 " Plug 'neovim/nvim-lspconfig'
+" Plug 'williamboman/nvim-lsp-installer', {'do': ':LspInstall bashls cssls html jsonls intelephense phpactor tsserver'}
 " Plug 'glepnir/lspsaga.nvim'
+" autocomplete
+" Plug 'ms-jpq/coq_nvim', {'branch': 'coq', 'do': ':COQdeps'}
+"" snippets
+" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+
+Plug 'blueyed/smarty.vim' " smarty files
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'itchyny/lightline.vim'
 Plug 'macthecadillac/lightline-gitdiff'
@@ -35,12 +42,12 @@ Plug 'markonm/traces.vim'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-xml coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
-Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim'
 Plug 'kdheepak/lazygit.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tommcdo/vim-fugitive-blame-ext' " :Gblame display the first line of the commit message at the bottom of the screen

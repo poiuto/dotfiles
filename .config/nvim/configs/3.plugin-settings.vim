@@ -10,7 +10,6 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-" autocmd FileType shell javascript json vim typescript css scss vue md yaml nmap <Leader>p :CocInstall coc-prettier<CR>
 nmap <Leader>pa <Plug>(coc-format-selected)<CR>
 vmap <Leader>pa <Plug>(coc-format-selected)<CR>
 " prettier for PHP
@@ -38,7 +37,7 @@ let g:indentLine_color_term = 239
 let g:indent_blankline_char = '🭲'
 let g:indent_blankline_filetype_exclude = ['coc-explorer', 'startify', 'text', 'help']
 let g:indent_blankline_show_trailing_blankline_indent = v:false
-let g:indent_blankline_use_treesitter = v:true
+let g:indent_blankline_use_treesitter = v:false
 let g:indentLine_showFirstIndentLevel = 1
 let g:indent_blankline_show_current_context = v:true
 let g:indent_blankline_context_highlight_list = ['Warning', 'String', 'Type', 'Include', 'Label']
@@ -62,13 +61,6 @@ let g:indent_blankline_context_patterns = [
     \"table",
     \]
 
-" for ejs files
-"au BufRead,BufNewFile *.ejs set ft=html
-"au BufRead,BufNewFile *.ejs set ft=mason
-
-" .theme files
-" au BufRead,BufNewFile *.theme set ft=php
-
 " undotree
 nmap <Leader>u :UndotreeToggle<CR>
 let g:undotree_WindowLayout = 2
@@ -78,19 +70,19 @@ let g:undotree_ShortIndicators = 1
 " ,, to trigger emmet
 let g:user_emmet_leader_key=','
 
-" easymotion
-nmap <silent> <Leader>j <Plug>(easymotion-overwin-f)
-nmap / <Plug>(easymotion-sn)
-
 " coc
+" symbols
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
 " applying codeAction to the selected region.xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>rn <Plug>(coc-rename)
+" auto fix
+nmap <leader>do <Plug>(coc-codeaction)
 
 " Custom icon for coc.nvim statusline
 let g:coc_status_error_sign=" "
 let g:coc_status_warning_sign=" "
-nmap <silent> gp :call CocAction('doHover')<CR>
+nmap <silent> gh :call CocAction('doHover')<CR>
 nmap <silent> gd :call CocAction('jumpDefinition', 'tab drop')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -113,7 +105,7 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -127,9 +119,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
+" " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{StatusDiagnostic()}
-" coc-explorer
+" " coc-explorer
 nmap <Leader>e :CocCommand explorer<CR>
 augroup coc_explorer
   autocmd!
@@ -199,127 +191,133 @@ let g:vdebug_options = {
 \  'port' : 9001,
 \}
 
-" vim-clap
-" let g:clap_provider_grep_opts='-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-" nmap <silent> <Leader>fe :Clap filer<CR>
-" nmap <silent> <Leader>ff :Clap files! --hidden .<CR>
-" nmap <silent> <Leader>fn :Clap files! +name-only --hidden .<CR>
-" nmap <silent> <Leader>fb :Clap buffers!<CR>
-" nmap <silent> <Leader>fw :Clap grep! ++query<cword> .<CR>
-" nmap <silent> <Leader>fu :Clap grep! ++query=<cword> .<CR>
-" nmap <silent> <Leader>fr :Clap grep2! ++query<cword> .<CR>
-" let g:clap_open_action = { 'ctrl-t': 'tab split', 'ctrl-s': 'split', 'ctrl-e': 'vsplit' }
-" let g:clap_layout = { 'relative': 'editor' }
-" let g:clap_preview_direction = 'LR' " UD for horizontally
-
 " treesitter
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
+" let g:coq_settings = {
+" \    'auto_start': v:true,
+" \    'limits.completion_auto_timeout': 1.5,
+" \    'clients.tabnine.enabled': v:true
+" \}
+
 lua <<EOF
--- telescope
-require('telescope').setup{
-  defaults = {
-      file_sorter = require "telescope.sorters".get_fzf_sorter,
-      generic_sorter = require "telescope.sorters".get_fzf_sorter,
-      vimgrep_arguments = {
-        "rg",
-        "-uu",
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
-        "-g",
-        "!{.git, node_modules, vendor}",
+    -- telescope
+    require('telescope').setup{
+      defaults = {
+          file_sorter = require "telescope.sorters".get_fzf,
+          generic_sorter = require "telescope.sorters".get_fzf_sorter,
+          vimgrep_arguments = {
+            "rg",
+            "-uu",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "-g",
+            "!{.git,node_modules,vendor}",
+          },
       },
-  },
-  pickers = {
-    buffers = {
-      mappings = {
-        i = {
-          ["<c-w>"] = "delete_buffer",
+      pickers = {
+        buffers = {
+          mappings = {
+            i = {
+              ["<c-w>"] = "delete_buffer",
+            }
+          }
         }
       }
     }
-  }
-}
-vim.api.nvim_set_keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '-uuu', '--hidden', '-g', '!{.git, node_modules, vendor}'} })<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fe", "<cmd>lua require('telescope.builtin').file_browser()<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fo", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {})
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('media_files')
-vim.api.nvim_set_keymap("n", "<Leader>fm", "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", {})
-require('telescope').load_extension('coc')
-vim.api.nvim_set_keymap("n", "<Leader>fcr", "<cmd>Telescope coc references<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fcd", "<cmd>Telescope coc definitions<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fcD", "<cmd>Telescope coc declarations<cr>", {})
-vim.api.nvim_set_keymap("n", "<Leader>fci", "<cmd>Telescope coc implementations<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '-uuu', '--hidden', '-g', '!{.git,node_modules,vendor}'} })<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fe", "<cmd>lua require('telescope.builtin').file_browser()<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fo", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {})
+    require('telescope').load_extension('fzf')
+    require('telescope').load_extension('media_files')
+    vim.api.nvim_set_keymap("n", "<Leader>fm", "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", {})
+    require('telescope').load_extension('coc')
+    vim.api.nvim_set_keymap("n", "<Leader>fcr", "<cmd>Telescope coc references<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fcd", "<cmd>Telescope coc definitions<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fcD", "<cmd>Telescope coc declarations<cr>", {})
+    vim.api.nvim_set_keymap("n", "<Leader>fci", "<cmd>Telescope coc implementations<cr>", {})
+    --vim.api.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {})
+    --vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
+    --vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", {})
+    --vim.api.nvim_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", {})
 
--- lsp
---require'lspconfig'.bashls.setup{}
---require'lspconfig'.intelephense.setup{}
---require'lspconfig'.phpactor.setup{}
---require'lspconfig'.psalm.setup{}
+    -- lsp
+    --local lsq = require("lspconfig")
+    --local lsp_installer = require("nvim-lsp-installer")
+    --local coq = require("coq")
+    --lsp_installer.on_server_ready(function (server)
+    --    server:setup{}
+    --    server:setup(coq.lsp_ensure_capabilities{})
+    --end)
 
-require'colorizer'.setup(
-  {
-    '*'
-  },
-  {
-    RGB      = true;
-    RRGGBB   = true;
-    names    = true;
-    RRGGBBAA = true;
-    rgb_fn   = true;
-    hsl_fn   = true;
-    css      = true;
-    css_fn   = true;
-    mode     = 'background';
-  }
-)
+    require'colorizer'.setup(
+      {
+        '*'
+      },
+      {
+        RGB      = true;
+        RRGGBB   = true;
+        names    = true;
+        RRGGBBAA = true;
+        rgb_fn   = true;
+        hsl_fn   = true;
+        css      = true;
+        css_fn   = true;
+        mode     = 'background';
+      }
+    )
 
--- kommentary
-vim.api.nvim_set_keymap("n", "<Leader>c", "<Plug>kommentary_line_default", {})
-vim.api.nvim_set_keymap("v", "<Leader>c", "<Plug>kommentary_visual_default", {})
-require('kommentary.config').configure_language("default", {
-    prefer_single_line_comments = true,
-})
-require('kommentary.config').configure_language("php", {
-    single_line_comment_string = "//",
-})
+    -- kommentary
+    vim.api.nvim_set_keymap("n", "<Leader>c", "<Plug>kommentary_line_default", {})
+    vim.api.nvim_set_keymap("v", "<Leader>c", "<Plug>kommentary_visual_default", {})
+    require('kommentary.config').configure_language("default", {
+        prefer_single_line_comments = true,
+    })
+    require('kommentary.config').configure_language("php", {
+        single_line_comment_string = "//",
+    })
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { 
-    "css",
-    "python",
-    "html",
-    "javascript", 
-    "jsdoc",
-    "json", 
-    "jsonc",
-    "lua",
-    "php", 
-    "query", 
-    "regex",
-    "scss", 
-    "typescript",
-    "yaml" 
-  },
-  highlight = {
-    enable = true,
-    disable = {"php", "javascript"},
-  },
-  indent = {
-    enable = true,
-    disable = {"php", "javascript"}
-  },
-}
+    require'nvim-treesitter.configs'.setup {
+      ensure_installed = { 
+        "css",
+    --    "python",
+        "html",
+        "javascript", 
+        "jsdoc",
+        "json", 
+        "jsonc",
+        "lua",
+        "php", 
+    --    "query", 
+    --    "regex",
+        "scss", 
+        "typescript",
+        "yaml" 
+      },
+      highlight = {
+        enable = true,
+        disable = {"php", "javascript"},
+        additional_vim_regex_highlighting = false,
+      },
+      indent = {
+        enable = true,
+        disable = {"php", "html", "javascript"}
+      },
+    }
+
+    -- hop
+    require'hop'.setup()
+
 EOF
+nmap <Leader>j :HopChar1<CR>
 
 " lightline
 "{{{lightline.vim

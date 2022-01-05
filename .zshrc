@@ -35,8 +35,10 @@ HISTFILESIZE=1000000
 SAVEHIST=$HISTSIZE
 
 # don't put duplicate lines or lines starting with space in the history.
-#export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoredups
 
+unsetopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
@@ -118,6 +120,37 @@ _zlf_handler() {
 }
 zle -N _zlf_handler
 
+# sxiv
+function sx() {
+    sxiv $1 &> /dev/null & disown;
+}
+
+# zathura
+function z() {
+    zathura $1 &> /dev/null & disown;
+}
+
+# zip
+function unzd() {
+    if [[ $# != 1 ]]; then echo need 1 zip file; return 1; fi
+    target="${1%.zip}"
+    unzip "$1" -d "${target##*/}"
+}
+
+# git
+function gsp() {
+    git stash push -m "stash_name_$1"
+}
+function gsa() {
+    git stash apply $(git stash list | grep "git_stash_name_$1" | cut -d: -f1)
+}
+function gsd() {
+    git stash drop $(git stash list | grep "git_stash_name_$1" | cut -d: -f1)
+}
+function gspop() {
+    git stash pop $(git stash list | grep "git_stash_name_$1" | cut -d: -f1)
+}
+
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
@@ -126,13 +159,20 @@ zle -N _zlf_handler
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias	cp='cp -ivrf' 
-alias scp='sudo cp -ivrf'
+alias scop='sudo cp -ivrf'
+alias	cpy='yes|cp -ivrf' 
+alias scpy='yes|sudo cp -ivrf'
 alias	mv="mv -iv" 
 alias smv='sudo mv -iv'
+alias	mvy="yes|mv -iv" 
+alias smvy='yes|sudo mv -iv'
 alias	rm="rm -vI" 
 alias rmr='rm -vIrf'
 alias srm='sudo rm -vIrf'
-alias	mkd="mkdir -pv" 
+alias	rmy="yes|rm -vI" 
+alias rmrt='yes|rm -vIrf'
+alias srmy='yes|sudo rm -vIrf'
+alias mkd="mkdir -pv" 
 alias smkd="sudo mkdir -pv"
 
 alias p='sudo pacman'
@@ -141,18 +181,24 @@ alias cl='clear'
 alias s='sudo'
 alias ss='sudo systemctl'
 alias so='source'
-# alias l='ls -CF -hN --color=auto --group-directories-first'
-alias ls='ls -hN --color=auto --group-directories-first'
-alias sls='sudo ls -hN --color=auto --group-directories-first'
-alias ll='ls -AlF -hN --color=auto --group-directories-first'
-alias sll='sudo ls -AlF -hN --color=auto --group-directories-first'
-alias la='ls -A -hN --color=auto --group-directories-first'
-alias sla='sudo ls -A -hN --color=auto --group-directories-first'
-alias tree='tree -a --dirsfirst'
+
+alias ls='exa --icons --color=always -s=type --group-directories-first'
+alias sls='sudo exa --icons --color=always -s=type --group-directories-first'
+alias la='exa -a --icons --color=always -s=type --group-directories-first'
+alias sla='sudo exa -a --icons --color=always -s=type --group-directories-first'
+alias ll='exa --header --long --group --time-style=long-iso --icons --color=always --group-directories-first -a -s=type'
+alias sll='sudo exa --header --long --group --time-style=long-iso --icons --color=always --group-directories-first -a -s=type'
+alias tree='exa --tree -a --ignore-glob=".git|vendor|node_modules|.vim" --color=always -s=type --group-directories-first'
 alias bat='bat --color=always --theme=gruvbox-dark'
   
 alias	g="git" 
 alias   gs='git status'
+alias   gst='git stash'
+alias   gc='git checkout'
+alias   gp='git pull'
+alias   gP='git push'
+alias   gf='git fetch'
+alias   gm='git merge'
 alias   glog='git log --graph --decorate --oneline'
 alias   lg='lazygit'
 
@@ -166,8 +212,8 @@ alias	ka="killall"
 alias	f="$FILE" 
 alias	v="$EDITOR" 
 alias   sv="sudo -E $EDITOR"
-alias   tx="tmux"
-alias	z="zathura"
+alias   t="tmux"
+# alias	z="zathura"
 
 # re-compile nvidia driver
 alias ynd="yay -Rncs --noconfirm nvidia-340xx-lts-dkms; yay -S --noconfirm nvidia-340xx-lts-dkms; reboot"
@@ -175,9 +221,23 @@ alias ynd="yay -Rncs --noconfirm nvidia-340xx-lts-dkms; yay -S --noconfirm nvidi
 bindkey -v
 
 # colorscript random
-pokemon-colorscripts -r
+pokemon-colorscripts -r 1 2 3 4 7
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"
 export PATH="$HOME/.config/.composer/vendor/bin:/usr/local/bin:/usr/local/sbin:$PATH"
-alias drush="PHP_INI_SCAN_DIR=:/etc/drush drush"
+# alias drush="PHP_INI_SCAN_DIR=:/etc/drush drush"
+
+# work
+alias pa='php artisan'
+function gpamz() {
+    grep -E 'Version: |Module: |Expert Mode: |Mode Dev: |MASTER|MERCHANT_ID|MARKETPLACE_ID|MWS|ASSOCIATE_ID' $1
+}
+
+function gpcd() {
+    grep -E 'Version: |Module: |Expert Mode: |Running Overrides: |USERNAME|PASSWORD' $1
+}
+
+function gpmirakl() {
+    grep -E 'Version: |Module: ' $1
+}
