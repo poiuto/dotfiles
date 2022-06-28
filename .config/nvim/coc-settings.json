@@ -51,14 +51,19 @@
   "typescript.showUnused": true,
   "javascript.showUnused": true,
   "cSpell.userWords": [
+    "COLISSIMO",
+    "Chasseurs",
     "Devicons",
+    "IMAP",
     "Nerdfont",
+    "Presta",
     "Retour",
     "firstname",
     "gruvbox",
     "gruvbox9",
     "lastname",
     "poiuto",
+    "soflexibilite",
     "soundplaying",
     "startify",
     "struct",
@@ -77,6 +82,7 @@
   // prettier
   "prettier.tabWidth": 4,
   "prettier.singleQuote": true,
+  "prettier.printWidth": 80,
 
   // html
   "html.autoClosingTags": true,
@@ -87,5 +93,5 @@
   "yaml.format.bracketSpacing": true,
 
   // phpls
-  "intelephense.environment.phpVersion": "5.3.0"
+  "intelephense.environment.phpVersion": "5.3.2"
 }

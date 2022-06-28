@@ -10,12 +10,12 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_auto_focus = 0
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
-nmap <Leader>pa <Plug>(coc-format-selected)<CR>
+nmap <Leader>pa :CocCommand prettier.formatFile<CR>
 vmap <Leader>pa <Plug>(coc-format-selected)<CR>
 " prettier for PHP
 function PrettierPhpCursor()
   let save_pos = getpos(".")
-  %! prettier --php-version="7.4" --tab-width=4 --single-quote="true" --brace-style="1tbs" --print-width=100 --parser=php
+  %! prettier --php-version="5.3" --tab-width=4 --single-quote="true" --brace-style="psr-2" --print-width=120 --parser=php
   call setpos('.', save_pos)
 endfunction
 command PrettierPhp call PrettierPhpCursor()
@@ -228,14 +228,20 @@ lua <<EOF
             }
           }
         }
+      },
+      extentions = {
+        file_browser = {
+          theme = "ivy"
+        }
       }
     }
     vim.api.nvim_set_keymap("n", "<Leader>ff", "<cmd>lua require('telescope.builtin').find_files({ find_command = {'rg', '--files', '-uuu', '--hidden', '-g', '!{.git,node_modules,vendor}'} })<cr>", {})
     vim.api.nvim_set_keymap("n", "<Leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", {})
     vim.api.nvim_set_keymap("n", "<Leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", {})
-    vim.api.nvim_set_keymap("n", "<Leader>fe", "<cmd>lua require('telescope.builtin').file_browser()<cr>", {})
     vim.api.nvim_set_keymap("n", "<Leader>fo", "<cmd>lua require('telescope.builtin').oldfiles()<cr>", {})
     vim.api.nvim_set_keymap("n", "<Leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", {})
+    require('telescope').load_extension('file_browser')
+    vim.api.nvim_set_keymap("n", "<Leader>fe", "<cmd>lua require('telescope').extensions.file_browser.file_browser()<cr>", {})
     require('telescope').load_extension('fzf')
     require('telescope').load_extension('media_files')
     vim.api.nvim_set_keymap("n", "<Leader>fm", "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", {})

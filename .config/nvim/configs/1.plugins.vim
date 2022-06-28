@@ -9,6 +9,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 "" preview media files
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
@@ -23,6 +24,7 @@ Plug 'fannheyward/telescope-coc.nvim'
 "" snippets
 " Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
+Plug 'chrisbra/csv.vim' "csv
 Plug 'blueyed/smarty.vim' " smarty files
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'itchyny/lightline.vim'
@@ -42,7 +44,7 @@ Plug 'markonm/traces.vim'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-xml coc-tsserver coc-html coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': ':CocInstall -sync coc-json coc-xml coc-tsserver coc-html coc-css coc-htmlhint coc-phpls coc-explorer coc-actions coc-tabnine coc-prettier \| CocUpdateSync'}
 Plug 'b3nj5m1n/kommentary'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'

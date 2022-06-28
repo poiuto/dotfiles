@@ -80,10 +80,16 @@ workspace $ws18 output $external_monitor
 workspace $ws19 output $external_monitor
 
 ###############################################################################
-# brightness, audio
+# mapping
 ###############################################################################
-# bindcode 232 exec ~/.config/scripts/notifications/brightness-control.sh down
-# bindcode 233 exec ~/.config/scripts/notifications/brightness-control.sh up
+
+# notifications
+bindsym Ctrl+space exec dunstctl close
+bindsym Ctrl+Shift+space exec dunstctl close-all
+
+# brightness
+bindcode 232 exec ~/.config/scripts/notifications/brightness-control.sh down
+bindcode 233 exec ~/.config/scripts/notifications/brightness-control.sh up
 bindcode 121 exec ~/.config/scripts/notifications/volume-control.sh mute
 bindcode 122 exec ~/.config/scripts/notifications/volume-control.sh down
 bindcode 123 exec ~/.config/scripts/notifications/volume-control.sh up
@@ -441,6 +447,10 @@ exec --no-startup-id xwallpaper --stretch $HOME/.config/wallpaper/wall.png
 # polybar
 exec --no-startup-id $HOME/.config/polybar/launch.sh
 
+# clipboard
+exec --no-startup-id greenclip daemon>/dev/null
+bindsym $mod+v exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard
+
 # redshift
 exec --no-startup-id pkill -9 redshift || true && redshift
 
@@ -451,7 +461,7 @@ exec --no-startup-id unclutter -idle 1 -root
 exec --no-startup-id xautolock -time 60 -locker slock
 
 # brightness
-exec --no-startup-id $HOME/.config/scripts/autostart/brightness.sh
+# exec --no-startup-id $HOME/.config/scripts/autostart/brightness.sh
 
 # fcitx
 exec --no-startup-id pkill -9 fcitx || true && fcitx -d

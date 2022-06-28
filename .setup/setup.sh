@@ -52,6 +52,8 @@ Exec = /usr/bin/paccache -r" > /etc/pacman.d/hooks/clean_package_cache.hook'
   sudo pacman -Sy --noconfirm xorg xorg-server xorg-xinit xorg-xprop xorg-xbacklight xorg-xwininfo arandr xf86-video-intel slock xautolock
 
   echo "=========================== input ==========================="
+  yay -Syu --noconfirm rofi-greenclip
+  systemctl --user enable greenclip.service
   # sudo bash -c "echo 'options psmouse proto=imps' > /etc/modprobe.d/psmouse.conf"
   # sudo pacman -Sy --noconfirm xf86-input-synaptics
   # yay -Sy --noconfirm xf86-input-evdev-trackpoint

@@ -221,23 +221,30 @@ alias ynd="yay -Rncs --noconfirm nvidia-340xx-lts-dkms; yay -S --noconfirm nvidi
 bindkey -v
 
 # colorscript random
-pokemon-colorscripts -r 1 2 3 4 7
+pokemon-colorscripts -r #1 2 3 4 7
 
 # cgr
 export PATH="$(composer config -g home)/vendor/bin:$PATH"
-export PATH="$HOME/.config/.composer/vendor/bin:/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/.config/.composer/vendor/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH"
 # alias drush="PHP_INI_SCAN_DIR=:/etc/drush drush"
 
 # work
 alias pa='php artisan'
 function gpamz() {
-    grep -E 'Version: |Module: |Expert Mode: |Mode Dev: |MASTER|MERCHANT_ID|MARKETPLACE_ID|MWS|ASSOCIATE_ID' $1
+    grep --text -E 'Version: |Module: |Expert Mode: |Mode Dev: |Check URL: |MASTER|MERCHANT_ID|MARKETPLACE_ID|MWS|ASSOCIATE_ID' $1
 }
 
 function gpcd() {
-    grep -E 'Version: |Module: |Expert Mode: |Running Overrides: |USERNAME|PASSWORD' $1
+    grep --text -E 'Version: |Module: |Expert Mode: |Running Overrides: |USERNAME|PASSWORD' $1
 }
 
 function gpmirakl() {
-    grep -E 'Version: |Module: ' $1
+    grep --text -E 'Version: |Module: ' $1
 }
+
+if test -n "$KITTY_INSTALLATION_DIR"; then
+    export KITTY_SHELL_INTEGRATION="no-cursor"
+    autoload -Uz -- "$KITTY_INSTALLATION_DIR"/shell-integration/zsh/kitty-integration
+    kitty-integration
+    unfunction kitty-integration
+fi

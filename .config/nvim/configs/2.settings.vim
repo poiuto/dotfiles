@@ -57,6 +57,7 @@ vnoremap <S-Tab> <
 
 nnoremap <Leader>/ :vsplit<CR>
 nnoremap <Leader>\ :split<CR>
+nnoremap <Leader>t :tab split<CR>
 
 " sessions
 map <Leader>sm :mksession! ~/.config/nvim/sessions/
